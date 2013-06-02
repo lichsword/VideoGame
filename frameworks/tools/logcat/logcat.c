@@ -41,6 +41,8 @@ int main()
 
     printf("Process %d opening FIFO\n", getpid());
     pipe_fp = open(PIPO_NAME_LOG, open_mode);
+
+	printf("open ...");
     printf("Process %d result %d\n", getpid(), res);
 
 	if(-1 != pipe_fp)

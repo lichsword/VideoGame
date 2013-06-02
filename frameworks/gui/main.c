@@ -12,6 +12,7 @@
 #include<GLUT/glut.h>
 #include<stdlib.h>
 #include<stdio.h>
+#include<stdarg.h> // define can change param.
 #include<unistd.h>
 #include<string.h>
 #include<fcntl.h>
@@ -22,6 +23,16 @@
 #define BUFFER_SIZE 1024
 
 char buffer[BUFFER_SIZE];
+
+GLuint basePos; // draw font position
+GLfloat counter1; // font pos counter 1
+GLfloat counter2; // font pos counter 2
+
+GLvoid buildFont(GLvoid)
+{
+	basePos = glGenLists(96);
+	// TODO
+}
 
 
 void init(void)
@@ -41,7 +52,7 @@ void init(void)
     glEnable (GL_LIGHT0); 
     glEnable (GL_DEPTH_TEST); 
 
-    sv_log("Hello, world");
+    sv_log("init...");
 } 
 
 void display(void)

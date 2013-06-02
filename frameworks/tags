@@ -1,0 +1,23 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BUFFER_SIZE	./gui/main.c	22;"	d	file:
+BUFFER_SIZE	./tools/logcat/logcat.c	19;"	d	file:
+GAME_LOG_H	./service/log/sv_log.h	2;"	d
+GAME_PIPO_H	./service/pipo/pipo.h	5;"	d
+OBJ	./service/log/makefile	/^OBJ = sv_log$/;"	m
+PIPO_NAME_LOG	./service/pipo/pipo.h	8;"	d
+buffer	./gui/main.c	/^char buffer[BUFFER_SIZE];$/;"	v
+display	./gui/main.c	/^void display(void)$/;"	f
+init	./gui/main.c	/^void init(void)$/;"	f
+keyboard	./gui/main.c	/^void keyboard ( unsigned char key, int x, int y) $/;"	f
+main	./gui/main.c	/^int main(int argc, char** argv)$/;"	f
+main	./tools/logcat/logcat.c	/^int main()$/;"	f
+mouse	./gui/main.c	/^void mouse(int button, int state, int x, int y)$/;"	f
+open_mode	./service/log/sv_log.c	/^int open_mode = O_WRONLY; \/\/ log pipe open mode.$/;"	v
+pipe_fp	./service/log/sv_log.c	/^int pipe_fp =0;$/;"	v
+reshape	./gui/main.c	/^void reshape(int w, int h)$/;"	f
+sv_log	./service/log/sv_log.c	/^void sv_log(char * content)$/;"	f
