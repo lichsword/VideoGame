@@ -1,0 +1,2 @@
+/* The header file of logcat.
+ */

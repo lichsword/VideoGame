@@ -1,0 +1,25 @@
+.
+├── README
+├── ai
+├── gui
+│   ├── build.sh
+│   ├── main.c
+│   └── run
+├── media
+│   ├── audio
+│   └── video
+├── net
+├── service
+│   └── pipo
+│       └── pipo.h
+├── tools
+│   ├── client
+│   ├── logcat
+│   │   ├── build.sh
+│   │   ├── logcat.c
+│   │   ├── logcat.h
+│   │   └── run
+│   └── server
+└── ui
+
+13 directories, 9 files

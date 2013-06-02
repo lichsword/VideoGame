@@ -1,0 +1,31 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BUFFER_SIZE	frameworks/gui/main.c	20;"	d	file:
+BUFFER_SIZE	frameworks/service/log/log.h	5;"	d
+LOG_H	frameworks/service/log/log.h	2;"	d
+LOG_H	packages/utils/log.h	8;"	d
+PIPO_NAME_LOG	frameworks/service/pipo/pipo.h	10;"	d
+TEN_MEG	frameworks/gui/main.c	21;"	d	file:
+TEN_MEG	frameworks/service/log/log.h	6;"	d
+buffer	frameworks/service/log/log.h	/^char buffer[BUFFER_SIZE + 1];$/;"	v
+bytes_sent	frameworks/service/log/log.h	/^int bytes_sent = 0; \/\/ log pipe send bytes$/;"	v
+display	demo/main.c	/^void display(void)$/;"	f
+display	frameworks/gui/main.c	/^void display(void)$/;"	f
+init	demo/main.c	/^void init(void)$/;"	f
+init	frameworks/gui/main.c	/^void init(void)$/;"	f
+keyboard	demo/main.c	/^void keyboard ( unsigned char key, int x, int y) $/;"	f
+keyboard	frameworks/gui/main.c	/^void keyboard ( unsigned char key, int x, int y) $/;"	f
+log	frameworks/service/log/log.c	/^void log(char * content)$/;"	f
+log_e	packages/utils/log.c	/^void log_e(char ** content)$/;"	f
+main	demo/main.c	/^int main(int argc, char** argv)$/;"	f
+main	frameworks/gui/main.c	/^int main(int argc, char** argv)$/;"	f
+main	frameworks/tools/logcat/logcat.c	/^int main()$/;"	f
+mouse	frameworks/gui/main.c	/^void mouse(int button, int state, int x, int y)$/;"	f
+open_mode	frameworks/service/log/log.c	/^int open_mode = O_WRONLY; \/\/ log pipe open mode.$/;"	v
+pipe_fp	frameworks/service/log/log.h	/^bool pipe_fp; \/\/ pipe file point$/;"	v
+reshape	demo/main.c	/^void reshape(int w, int h)$/;"	f
+reshape	frameworks/gui/main.c	/^void reshape(int w, int h)$/;"	f
