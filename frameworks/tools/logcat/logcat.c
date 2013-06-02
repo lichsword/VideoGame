@@ -12,14 +12,22 @@
 #include<stdio.h>
 #include<string.h>
 #include<fcntl.h>
+#include<limits.h>
 #include<sys/types.h>
 #include<sys/stat.h>
 
+#define BUFFER_SIZE PIPE_BUF
+
 int main()
 {
+	int pipe_fp = 0;
     int res=0;
-    int open_mode = O_WRONLY;
-    int result = access(PIPO_NAME_LOG, F_OK);
+    int open_mode = O_RDONLY;
+    char buffer[BUFFER_SIZE + 1];
+	int bytes_read = 0;
+
+	// clean buffer data
+	memset(buffer, '\0', sizeof(buffer));
 
     if(access(PIPO_NAME_LOG, F_OK)==-1)
     {
@@ -32,13 +40,18 @@ int main()
     }// end if
 
     printf("Process %d opening FIFO\n", getpid());
-    res = open(PIPO_NAME_LOG, open_mode);
+    pipe_fp = open(PIPO_NAME_LOG, open_mode);
     printf("Process %d result %d\n", getpid(), res);
 
-    sleep(5);
-
-    if(-1!=res)
-        (void)close(res);
+	if(-1 != pipe_fp)
+    {
+        do
+		{
+			res = read(pipe_fp, buffer, BUFFER_SIZE);
+			bytes_read += res; 
+        }while(res > 0);
+		(void)close(pipe_fp);
+	}// end if
 
     printf("Process %d finished\n", getpid());
     exit(EXIT_SUCCESS);

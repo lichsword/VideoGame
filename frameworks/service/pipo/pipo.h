@@ -1,10 +1,10 @@
 /*
  * The header file of pipo
  */
-#include<string.h>
-#include<fcntl.h>
-#include<limits.h>
-#include<sys/types.h>
-#include<sys/stat.h>
+#ifndef GAME_PIPO_H
+#define GAME_PIPO_H
+
 
 #define PIPO_NAME_LOG "/tmp/my_pipo_log" 
+
+#endif

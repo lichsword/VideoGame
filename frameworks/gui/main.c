@@ -4,7 +4,8 @@
  */
 
 // local head files.
-#include"../service/log/log.h"
+#include"../service/log/sv_log.h"
+
 // system head files.
 #include<OpenGL/glu.h>
 #include<OpenGL/gl.h>
@@ -18,6 +19,9 @@
 #include<sys/types.h>
 #include<sys/stat.h>
 
+#define BUFFER_SIZE 1024
+
+char buffer[BUFFER_SIZE];
 
 
 void init(void)
@@ -37,9 +41,7 @@ void init(void)
     glEnable (GL_LIGHT0); 
     glEnable (GL_DEPTH_TEST); 
 
-    char* text="Hello, world!";
-    //log("Hello world");  
-    log_abcd(text); 
+    sv_log("Hello, world");
 } 
 
 void display(void)
@@ -78,12 +80,14 @@ void keyboard ( unsigned char key, int x, int y)
 void mouse(int button, int state, int x, int y)
 {
     // TODO
+    sprintf(buffer, "button = %d, state = %d, x = %d, y = %d", button, state, x, y);
+    sv_log(buffer);
 }
 
 int main(int argc, char** argv)
 {
   
-    printf("start main...");
+    sv_log("start main...");
 
     glutInit(&argc, argv);
 
