@@ -4,28 +4,27 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-BUFFER_SIZE	frameworks/gui/main.c	20;"	d	file:
-BUFFER_SIZE	frameworks/service/log/log.h	5;"	d
-LOG_H	frameworks/service/log/log.h	2;"	d
+BUFFER_SIZE	frameworks/gui/main.c	22;"	d	file:
+BUFFER_SIZE	frameworks/tools/logcat/logcat.c	19;"	d	file:
+GAME_LOG_H	frameworks/service/log/sv_log.h	2;"	d
+GAME_PIPO_H	frameworks/service/pipo/pipo.h	5;"	d
 LOG_H	packages/utils/log.h	8;"	d
-PIPO_NAME_LOG	frameworks/service/pipo/pipo.h	10;"	d
-TEN_MEG	frameworks/gui/main.c	21;"	d	file:
-TEN_MEG	frameworks/service/log/log.h	6;"	d
-buffer	frameworks/service/log/log.h	/^char buffer[BUFFER_SIZE + 1];$/;"	v
-bytes_sent	frameworks/service/log/log.h	/^int bytes_sent = 0; \/\/ log pipe send bytes$/;"	v
+OBJ	frameworks/service/log/makefile	/^OBJ = sv_log$/;"	m
+PIPO_NAME_LOG	frameworks/service/pipo/pipo.h	8;"	d
+buffer	frameworks/gui/main.c	/^char buffer[BUFFER_SIZE];$/;"	v
 display	demo/main.c	/^void display(void)$/;"	f
 display	frameworks/gui/main.c	/^void display(void)$/;"	f
 init	demo/main.c	/^void init(void)$/;"	f
 init	frameworks/gui/main.c	/^void init(void)$/;"	f
 keyboard	demo/main.c	/^void keyboard ( unsigned char key, int x, int y) $/;"	f
 keyboard	frameworks/gui/main.c	/^void keyboard ( unsigned char key, int x, int y) $/;"	f
-log	frameworks/service/log/log.c	/^void log(char * content)$/;"	f
 log_e	packages/utils/log.c	/^void log_e(char ** content)$/;"	f
 main	demo/main.c	/^int main(int argc, char** argv)$/;"	f
 main	frameworks/gui/main.c	/^int main(int argc, char** argv)$/;"	f
 main	frameworks/tools/logcat/logcat.c	/^int main()$/;"	f
 mouse	frameworks/gui/main.c	/^void mouse(int button, int state, int x, int y)$/;"	f
-open_mode	frameworks/service/log/log.c	/^int open_mode = O_WRONLY; \/\/ log pipe open mode.$/;"	v
-pipe_fp	frameworks/service/log/log.h	/^bool pipe_fp; \/\/ pipe file point$/;"	v
+open_mode	frameworks/service/log/sv_log.c	/^int open_mode = O_WRONLY; \/\/ log pipe open mode.$/;"	v
+pipe_fp	frameworks/service/log/sv_log.c	/^int pipe_fp =0;$/;"	v
 reshape	demo/main.c	/^void reshape(int w, int h)$/;"	f
 reshape	frameworks/gui/main.c	/^void reshape(int w, int h)$/;"	f
+sv_log	frameworks/service/log/sv_log.c	/^void sv_log(char * content)$/;"	f
