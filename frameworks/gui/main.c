@@ -5,6 +5,7 @@
 
 // local head files.
 #include"../service/log/sv_log.h"
+#include"../service/font/sv_font.h"
 
 // system head files.
 #include<OpenGL/glu.h>
@@ -43,6 +44,7 @@ void init(void)
 
     glClearColor ( 0.0, 0.0, 0.0, 0.0 ); 
     glShadeModel ( GL_SMOOTH ); 
+	makeRasterFont();
 
     glMaterialfv ( GL_FRONT, GL_SPECULAR, mat_specular); 
     glMaterialfv ( GL_FRONT, GL_SHININESS, mat_shininess); 
@@ -60,6 +62,11 @@ void display(void)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glutSolidSphere(1.0, 40, 50);
+
+	glColor3f(1.0, 0.5, 1.0);
+	
+	glRasterPos2i(20, 60);
+	printString("A");
 
     glFlush();
 }
