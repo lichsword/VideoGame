@@ -7,5 +7,4 @@ main.o: main.c
 ../service/font/sv_font.o: ../service/font/sv_font.c
 	gcc -c ../service/font/sv_font.c -o ../service/font/sv_font.o
 clean:  
-	cd ..
-	rm -ir *.o run
+	find ../../frameworks -name '*.o'|xargs rm -r

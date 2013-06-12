@@ -23,6 +23,12 @@
 
 #define BUFFER_SIZE 1024
 
+#define WINDOW_WIDTH 480
+#define WINDOW_HEIGHT 800
+
+#define WINDOW_POS_X 100
+#define WINDOW_POS_Y 100
+
 char buffer[BUFFER_SIZE];
 
 GLuint basePos; // draw font position
@@ -38,35 +44,43 @@ GLvoid buildFont(GLvoid)
 
 void init(void)
 {
-    GLfloat mat_specular [ ] = { 1.0, 1.0, 1.0, 1.0 }; 
-    GLfloat mat_shininess [ ] = { 50.0 }; 
-    GLfloat light_position [ ] = { 1.0, 1.0, 1.0, 0.0 }; 
+    //GLfloat mat_specular [ ] = { 1.0, 1.0, 1.0, 1.0 }; 
+    //GLfloat mat_shininess [ ] = { 50.0 }; 
+    //GLfloat light_position [ ] = { 1.0, 1.0, 1.0, 0.0 }; 
 
     glClearColor ( 0.0, 0.0, 0.0, 0.0 ); 
     glShadeModel ( GL_SMOOTH ); 
 	makeRasterFont();
 
-    glMaterialfv ( GL_FRONT, GL_SPECULAR, mat_specular); 
-    glMaterialfv ( GL_FRONT, GL_SHININESS, mat_shininess); 
-    glLightfv ( GL_LIGHT0, GL_POSITION, light_position); 
+	//gluOrtho2D(WINDOW_WIDTH, WINDOW_HEIGHT); 
 
-    glEnable (GL_LIGHTING); 
-    glEnable (GL_LIGHT0); 
-    glEnable (GL_DEPTH_TEST); 
+	// below light will hide the font display.
+    //glMaterialfv ( GL_FRONT, GL_SPECULAR, mat_specular); 
+    //glMaterialfv ( GL_FRONT, GL_SHININESS, mat_shininess); 
+    //glLightfv ( GL_LIGHT0, GL_POSITION, light_position); 
+
+    //glEnable (GL_LIGHTING); 
+    //glEnable (GL_LIGHT0); 
+    //glEnable (GL_DEPTH_TEST); 
 
     sv_log("init...");
 } 
 
 void display(void)
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	GLfloat white[3] = {1.0, 1.0, 1.0};
+    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
+	glColor3fv(white);
 
-    glutSolidSphere(1.0, 40, 50);
-
-	glColor3f(1.0, 0.5, 1.0);
-	
-	glRasterPos2i(20, 60);
-	printString("A");
+    //glutSolidSphere(1.0, 40, 50);
+// "ABCD" all can print right, so the content is right.
+// now, we need make sure the position is right/wrong?	
+// (0,0) position is ok, display center of screen.
+// (1,0) position is ok, display right of screen.
+// (1,2) position is ok, display rigth-top of screen.
+	glRasterPos2i(-1, 2);
+	printString("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 
     glFlush();
 }
@@ -111,9 +125,9 @@ int main(int argc, char** argv)
 
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
 
-    glutInitWindowSize(480, 800);
+    glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
  
-    glutInitWindowPosition(100, 100);
+    glutInitWindowPosition(WINDOW_POS_X, WINDOW_POS_Y);
 
     glutCreateWindow(argv[0]);
 
