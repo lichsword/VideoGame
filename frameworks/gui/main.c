@@ -79,7 +79,7 @@ void display(void)
 // (0,0) position is ok, display center of screen.
 // (1,0) position is ok, display right of screen.
 // (1,2) position is ok, display rigth-top of screen.
-	glRasterPos2i(-1, 2);
+	glRasterPos2i(0, 0);
 	printString("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 
     glFlush();
@@ -91,12 +91,15 @@ void reshape(int w, int h)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
+	/*
     if (w <= h) 
         glOrtho (-1.5, 1.5, -1.5 * ( GLfloat ) h / ( GLfloat ) w, 1.5 * ( GLfloat ) h / ( GLfloat ) w, -10.0, 10.0 ); 
     else 
         glOrtho (-1.5 * ( GLfloat ) w / ( GLfloat ) h, 1.5 * ( GLfloat ) w / ( GLfloat ) h, -1.5, 1.5, -10.0, 10.0); 
     glMatrixMode ( GL_MODELVIEW ); 
     glLoadIdentity (); 
+	*/
+	gluOrtho2D(0.0, (GLdouble) w, 0.0, (GLdouble) h);
 }
 
 void keyboard ( unsigned char key, int x, int y) 
