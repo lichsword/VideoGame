@@ -12,6 +12,7 @@ import javax.swing.JTabbedPane;
 
 import org.lichsword.game.manager.AppVersionManager;
 import org.lichsword.game.manager.ConfigManager;
+import org.lichsword.game.ui.panel.Draw3DTriangle;
 import org.lichsword.game.ui.panel.DrawByMousePanel;
 import org.lichsword.game.ui.panel.DrawLinePanel;
 import org.lichsword.game.ui.panel.DrawTriangle;
@@ -78,12 +79,14 @@ public class Launcher extends JFrame {
     private final String TAB_NAME_DRAW_TRIANGLE = "Draw Triangle";
     private final String TAB_NAME_DRAW_BY_MOUSE = "Draw By Mouse";
     private final String TAB_NAME_SWAP_BUFFER = "Swap Buffer";
+    private final String TAB_NAME_DRAW_3D_TRIANGLE = "3D Triangle";
 
     private void initChildTab() {
         mTabs.addTab(TAB_NAME_DRAW_LINE, new DrawLinePanel());
         mTabs.addTab(TAB_NAME_DRAW_TRIANGLE, new DrawTriangle());
         mTabs.addTab(TAB_NAME_DRAW_BY_MOUSE, new DrawByMousePanel());
         mTabs.addTab(TAB_NAME_SWAP_BUFFER, new SwapBuffer());
+        mTabs.addTab(TAB_NAME_DRAW_3D_TRIANGLE, new Draw3DTriangle());
 
         int index = ConfigManager.getInstance().getWindowTabIndex(0);
         if (index >= mTabs.getTabCount()) {
