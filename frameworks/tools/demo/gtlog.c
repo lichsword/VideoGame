@@ -10,13 +10,7 @@ FILE * fp = NULL;// define
 char DEFAULT_FILE_NAME[] = "log.data";
 
 boolean gtensureFile(){
-   return gtensureFile(DEFAULT_FILE_NAME);
-}
-
-void destory(){
-    if (NULL != fp){
-        fclose(fp);
-    }// end if
+   return gtensureFileWithName(DEFAULT_FILE_NAME);
 }
 
 boolean gtensureFileWithName(char * filename){
@@ -27,12 +21,18 @@ boolean gtensureFileWithName(char * filename){
     }// end if
 
     // check
-//    result = (fp==NULL);
-    if(fp!=NULL)
-        result = true;
-    else
-        result = false;
+    result = (fp==NULL);
+//    if(fp!=NULL)
+//        result = true;
+//    else
+//        result = false;
     return result;
+}
+
+void destory(){
+    if (NULL != fp){
+        fclose(fp);
+    }// end if
 }
 
 void gtlog(char * msg){

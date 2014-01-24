@@ -7,13 +7,17 @@
 #define WINDOW_POS_X 100
 #define WINDOW_POS_Y 100
 
+int Exit = 0;
+
 void initGlobalRes(void){
     gtensureFile();
+    gtlogln("onReshape()...invoked.");
+    gtloglnWithTag("lichsword", "onReshape()...invoked.");
 }
 
 void onReshape(int width, int height){
     printf("onReshape()...invoked.");
-    //gtlogln("onReshape()...invoked.");
+    gtlogln("onReshape()...invoked.");
     //gtloglnWithTag("lichsword", "onReshape()...invoked.");
 }
 void onKeyboard(unsigned char key, int x, int y){
