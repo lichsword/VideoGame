@@ -1,0 +1,24 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BUFFER_SIZE	make3d.c	24;"	d	file:
+MAKE_3D_H	make3d.h	2;"	d
+WINDOW_HEIGHT	make3d.c	27;"	d	file:
+WINDOW_POS_X	make3d.c	29;"	d	file:
+WINDOW_POS_Y	make3d.c	30;"	d	file:
+WINDOW_WIDTH	make3d.c	26;"	d	file:
+basePos	make3d.c	/^GLuint basePos; \/\/ draw font position$/;"	v
+buffer	make3d.c	/^char buffer[BUFFER_SIZE];$/;"	v
+buildFont	make3d.c	/^GLvoid buildFont(GLvoid)$/;"	f
+counter1	make3d.c	/^GLfloat counter1; \/\/ font pos counter 1$/;"	v
+counter2	make3d.c	/^GLfloat counter2; \/\/ font pos counter 2$/;"	v
+display	make3d.c	/^void display(void)$/;"	f
+drawCoordinate	make3d.c	/^GLvoid drawCoordinate(){$/;"	f
+init	make3d.c	/^void init(void)$/;"	f
+keyboard	make3d.c	/^void keyboard ( unsigned char key, int x, int y) $/;"	f
+main	make3d.c	/^int main(int argc, char** argv)$/;"	f
+mouse	make3d.c	/^void mouse(int button, int state, int x, int y)$/;"	f
+reshape	make3d.c	/^void reshape(int w, int h)$/;"	f

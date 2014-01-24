@@ -1,0 +1,22 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CC	makefile	/^CC = gcc$/;"	m
+LIBS	makefile	/^LIBS = -framework OpenGl -framework GLUT$/;"	m
+MACOSX	gltools.h	/^#define MACOSX$/;"	d
+OBJS	makefile	/^OBJS = $(PROJ).o$/;"	m
+PROJ	makefile	/^PROJ = main$/;"	m
+WINDOW_HEIGHT	main.c	/^#define WINDOW_HEIGHT /;"	d	file:
+WINDOW_POS_X	main.c	/^#define WINDOW_POS_X /;"	d	file:
+WINDOW_POS_Y	main.c	/^#define WINDOW_POS_Y /;"	d	file:
+WINDOW_WIDTH	main.c	/^#define WINDOW_WIDTH /;"	d	file:
+__gltools_h__	gltools.h	/^#define __gltools_h__$/;"	d
+initRes	main.c	/^void initRes(void){}$/;"	f
+main	main.c	/^int main(int argc, char * argv[]){$/;"	f
+onDisplay	main.c	/^void onDisplay(void){}$/;"	f
+onKeyboard	main.c	/^void onKeyboard(unsigned char key, int x, int y){}$/;"	f
+onMouse	main.c	/^void onMouse(int button, int state, int x, int y){}$/;"	f
+onReshape	main.c	/^void onReshape(int width, int height){}$/;"	f

@@ -1,0 +1,14 @@
+(1)TuringMachine: 
+    desc: an state machine model, use to design state machine by GUI.
+    history: has disappearred.
+(2)client: 
+    desc: 3d video game client, which is the main launcher application.
+    history: developing.
+(3)logcat: 
+    desc: named from android's adb logcat, use to manager log info.
+(4)make3d:
+    desc: an 3d model design tool, like 3d max, maya.
+(5)server: 
+    desc: 3d video game's server, which is the main server application.
+(6)gldemo: 
+    desc: demo of opengl api. 
