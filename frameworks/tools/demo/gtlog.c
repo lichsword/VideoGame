@@ -3,15 +3,54 @@
 // Lichsword Video Game Enginee
 //
 // Report bugs to lichswordkernel@gmail.com
+#include "gtcommon.h"
 #include "gtlog.h"
 
-void gtlog(void){
-    FILE * fp = fopen("filename.log", "w+"); 
-    if( fp == NULL){
-        printf("Can't open%s\n", "filename.log");
+FILE * fp = NULL;// define
+char DEFAULT_FILE_NAME[] = "log.data";
+
+boolean gtensureFile(){
+   return gtensureFile(DEFAULT_FILE_NAME);
+}
+
+void destory(){
+    if (NULL != fp){
+        fclose(fp);
+    }// end if
+}
+
+boolean gtensureFileWithName(char * filename){
+    boolean result = false;
+    if (fp == NULL){
+        // try open file
+        fp = fopen(DEFAULT_FILE_NAME, "w+");
     }// end if
 
-    fputs("show me the monty", fp); 
-    fwrite("Hello log",1, 9, fp);
-    fclose(fp);
+    // check
+//    result = (fp==NULL);
+    if(fp!=NULL)
+        result = true;
+    else
+        result = false;
+    return result;
+}
+
+void gtlog(char * msg){
+    fputs(msg, fp);
+}
+
+void gtlogln(char * msg){
+    fputs(msg, fp);
+    fputc('\n', fp);
+}
+
+void gtlogWithTag(char * tag, char * msg){
+    fputs(tag, fp);
+    fputc('|', fp);// divider char
+    fputs(msg, fp);
+}
+
+void gtloglnWithTag(char * tag, char * msg){
+   gtlogWithTag(tag, msg);
+   fputc('\n', fp); 
 }

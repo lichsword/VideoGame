@@ -9,7 +9,11 @@
 
 // file io head file.
 #include <stdio.h>
-
-void gtlog(void);
-
+boolean gtensureFile();
+boolean gtensureFileWithName(char * filename);
+void destory();
+void gtlog(char * msg);
+void gtlogln(char * msg);
+void gtlogWithTag(char * tag, char * msg);
+void gtloglnWithTag(char * tag, char * msg);
 #endif

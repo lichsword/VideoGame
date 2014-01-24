@@ -5,18 +5,28 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
 CC	makefile	/^CC = gcc$/;"	m
+DEFAULT_FILE_NAME	gtlog.c	/^const char DEFAULT_FILE_NAME[] = "log.data";$/;"	v
 LIBS	makefile	/^LIBS = -framework OpenGl -framework GLUT$/;"	m
 MACOSX	gltools.h	/^#define MACOSX$/;"	d
-OBJS	makefile	/^OBJS = $(PROJ).o$/;"	m
+OBJS	makefile	/^OBJS = $(PROJ).o $(OBJ_LOG).o$/;"	m
+OBJ_LOG	makefile	/^OBJ_LOG = gtlog$/;"	m
 PROJ	makefile	/^PROJ = main$/;"	m
 WINDOW_HEIGHT	main.c	/^#define WINDOW_HEIGHT /;"	d	file:
 WINDOW_POS_X	main.c	/^#define WINDOW_POS_X /;"	d	file:
 WINDOW_POS_Y	main.c	/^#define WINDOW_POS_Y /;"	d	file:
 WINDOW_WIDTH	main.c	/^#define WINDOW_WIDTH /;"	d	file:
 __gltools_h__	gltools.h	/^#define __gltools_h__$/;"	d
-initRes	main.c	/^void initRes(void){}$/;"	f
+__log_h__	gtlog.h	/^#define __log_h__$/;"	d
+destory	gtlog.c	/^void destory(){$/;"	f
+fp	gtlog.c	/^FILE * fp = NULL;\/\/ define$/;"	v
+gtEnsureFile	gtlog.c	/^bool gtEnsureFile(){$/;"	f
+gtEnsureFile	gtlog.c	/^bool gtEnsureFile(const char * filename){$/;"	f
+gtlog	gtlog.c	/^void gtlog(const char * msg){$/;"	f
+gtlogWithTag	gtlog.c	/^void gtlogWithTag(char * tag, char * msg){$/;"	f
+gtloglnWithTag	gtlog.c	/^void gtloglnWithTag(char * tag, char * msg){$/;"	f
+initGlobalRes	main.c	/^void initGlobalRes(void){}$/;"	f
 main	main.c	/^int main(int argc, char * argv[]){$/;"	f
 onDisplay	main.c	/^void onDisplay(void){}$/;"	f
-onKeyboard	main.c	/^void onKeyboard(unsigned char key, int x, int y){}$/;"	f
+onKeyboard	main.c	/^void onKeyboard(unsigned char key, int x, int y){$/;"	f
 onMouse	main.c	/^void onMouse(int button, int state, int x, int y){}$/;"	f
-onReshape	main.c	/^void onReshape(int width, int height){}$/;"	f
+onReshape	main.c	/^void onReshape(int width, int height){$/;"	f

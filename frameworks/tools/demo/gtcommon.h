@@ -18,7 +18,7 @@
 #include <sys/time.h>
 
 #else
-// Assuming Linux
+    // Assuming Linux
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
@@ -31,4 +31,11 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
+
+
+#define boolean int
+#define false 0
+#define true 1
+
+
 #endif

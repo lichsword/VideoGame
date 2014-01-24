@@ -1,4 +1,4 @@
-#include "gltools.h"
+#include "gtcommon.h"
 
 #include "gtlog.h"
 
@@ -7,11 +7,14 @@
 #define WINDOW_POS_X 100
 #define WINDOW_POS_Y 100
 
+void initGlobalRes(void){
+    gtensureFile();
+}
 
-void initGlobalRes(void){}
 void onReshape(int width, int height){
     printf("onReshape()...invoked.");
-    gtlog();
+    //gtlogln("onReshape()...invoked.");
+    //gtloglnWithTag("lichsword", "onReshape()...invoked.");
 }
 void onKeyboard(unsigned char key, int x, int y){
     printf("onKeyboard()...invoked.");
@@ -31,8 +34,6 @@ int main(int argc, char * argv[]){
     glutInitWindowPosition(WINDOW_POS_X, WINDOW_POS_Y);
     // set window title
     glutCreateWindow("Video Game 3D Enginee Demo");
-    // init recource 
-    initGlobalRes();
     // set reshape callback
     glutReshapeFunc(onReshape);
     // set keyboard callback
@@ -41,6 +42,8 @@ int main(int argc, char * argv[]){
     glutMouseFunc(onMouse);
     // set display callback
     glutDisplayFunc(onDisplay);
+    // init recource 
+    initGlobalRes();
     // start main loop
     glutMainLoop();
 
