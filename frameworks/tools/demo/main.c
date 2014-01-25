@@ -26,11 +26,10 @@ void initGlobalRes(void){
  * 当窗口改变时
  */
 void onReshape(int width, int height){
-    printf("onReshape()...invoked.");
     gtlogln("onReshape()...invoked.");
     gtloglnWithTag("lichsword", "onReshape()...invoked.");
     // TODO
-    GLfloat aspectRatio;    
+    GLfloat aspectRatio;// 裁剪比例   
 
     // 防止
     if(0==height)
@@ -43,7 +42,7 @@ void onReshape(int width, int height){
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    // 设置视口为标准: 宽(-100, 100)，高(100, 100)的正方形
+    // 修改视口的裁剪区域为标准: 宽(-100, 100)，高(100, 100)的正方形
     aspectRatio = (GLfloat) width/ (GLfloat) height;
     if(width <=height)
         glOrtho(-100.0, 100.0, -100/aspectRatio, 100.0/aspectRatio, 1.0, -1.0);
@@ -58,7 +57,8 @@ void onReshape(int width, int height){
  * 键盘响应
  */
 void onKeyboard(unsigned char key, int x, int y){
-    printf("onKeyboard()...invoked.");
+    // TODO
+    //printf("onKeyboard()...invoked.");
 }
 
 /**
@@ -79,7 +79,8 @@ void onDisplay(void){
     glRectf(-25.0f, 25.0f, 25.0f, -25.0f);// draw a rect with red color
     // TODO
     //--------
-    glFlush();// force flush screen buffer.
+    //glFlush();// (Single Buffer)force flush screen buffer.
+    glutSwapBuffers();// (Double Buffer)swap buffers.
 }
 
 /**
