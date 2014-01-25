@@ -22,10 +22,6 @@ boolean gtensureFileWithName(char * filename){
 
     // check
     result = (fp==NULL);
-//    if(fp!=NULL)
-//        result = true;
-//    else
-//        result = false;
     return result;
 }
 
@@ -37,20 +33,26 @@ void destory(){
 
 void gtlog(char * msg){
     fputs(msg, fp);
+    fflush(fp);// flush buffer to file.
 }
 
 void gtlogln(char * msg){
     fputs(msg, fp);
     fputc('\n', fp);
+    fflush(fp);// flush buffer to file.
+
 }
 
 void gtlogWithTag(char * tag, char * msg){
     fputs(tag, fp);
     fputc('|', fp);// divider char
     fputs(msg, fp);
+    fflush(fp);// flush buffer to file.
+
 }
 
 void gtloglnWithTag(char * tag, char * msg){
-   gtlogWithTag(tag, msg);
-   fputc('\n', fp); 
+    gtlogWithTag(tag, msg);
+    fputc('\n', fp); 
+    fflush(fp);// flush buffer to file.
 }

@@ -18,7 +18,7 @@ void initGlobalRes(void){
 void onReshape(int width, int height){
     printf("onReshape()...invoked.");
     gtlogln("onReshape()...invoked.");
-    //gtloglnWithTag("lichsword", "onReshape()...invoked.");
+    gtloglnWithTag("lichsword", "onReshape()...invoked.");
 }
 void onKeyboard(unsigned char key, int x, int y){
     printf("onKeyboard()...invoked.");
