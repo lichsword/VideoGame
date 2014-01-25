@@ -58,6 +58,7 @@ void onReshape(int width, int height){
  */
 void onKeyboard(unsigned char key, int x, int y){
     // TODO
+    gtloglnWithTagFormatChar1("Press key: ", "%c", key);
     //printf("onKeyboard()...invoked.");
 }
 
@@ -66,6 +67,7 @@ void onKeyboard(unsigned char key, int x, int y){
  */
 void onMouse(int button, int state, int x, int y){
     // TODO
+    gtloglnWithTagFormatInt4("Mouse Event: ", "button=%d,state=%d,x=%d,y=%d", button, state, x, y);
 }
 
 /**

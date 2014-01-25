@@ -56,3 +56,24 @@ void gtloglnWithTag(char * tag, char * msg){
     fputc('\n', fp); 
     fflush(fp);// flush buffer to file.
 }
+
+void gtloglnWithTagFormatInt1(char * tag, char * format, int param){
+    fputs(tag, fp);
+    fprintf(fp, format, param);
+    fputc('\n', fp);
+    fflush(fp);// flush buffer to file.
+}
+
+void gtloglnWithTagFormatChar1(char * tag, char * format, unsigned char param){
+    fputs(tag, fp);
+    fprintf(fp, format, param);
+    fputc('\n', fp);
+    fflush(fp);// flush buffer to file.
+}
+
+void gtloglnWithTagFormatInt4(char * tag, char * format, int param1, int param2, int param3, int param4){
+    fputs(tag, fp);
+    fprintf(fp, format, param1, param2, param3, param4);
+    fputc('\n', fp);
+    fflush(fp);// flush buffer to file.
+}
