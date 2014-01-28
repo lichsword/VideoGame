@@ -18,5 +18,7 @@ void gtlogWithTag(char * tag, char * msg);
 void gtloglnWithTag(char * tag, char * msg);
 void gtloglnWithTagFormatInt1(char * tag, char * format, int param);
 void gtloglnWithTagFormatChar1(char * tag, char * format, unsigned char param);
+void gtloglnWithTagFormatInt2(char * tag, char * format, int param1, int param2);
+void gtloglnWithTagFormatFloat2(char * tag, char * format, float param1, float param2);
 void gtloglnWithTagFormatInt4(char * tag, char * format, int param1, int param2, int parma3, int param4);
 #endif

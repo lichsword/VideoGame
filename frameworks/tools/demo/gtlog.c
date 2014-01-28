@@ -59,6 +59,7 @@ void gtloglnWithTag(char * tag, char * msg){
 
 void gtloglnWithTagFormatInt1(char * tag, char * format, int param){
     fputs(tag, fp);
+    fputc('|', fp);// divider char
     fprintf(fp, format, param);
     fputc('\n', fp);
     fflush(fp);// flush buffer to file.
@@ -66,13 +67,31 @@ void gtloglnWithTagFormatInt1(char * tag, char * format, int param){
 
 void gtloglnWithTagFormatChar1(char * tag, char * format, unsigned char param){
     fputs(tag, fp);
+    fputc('|', fp);// divider char
     fprintf(fp, format, param);
+    fputc('\n', fp);
+    fflush(fp);// flush buffer to file.
+}
+
+void gtloglnWithTagFormatFloat2(char * tag, char * format, float param1, float param2){
+    fputs(tag, fp);
+    fputc('|', fp);// divider char
+    fprintf(fp, format, param1, param2);
+    fputc('\n', fp);
+    fflush(fp);// flush buffer to file.
+}
+
+void gtloglnWithTagFormatInt2(char * tag, char * format, int param1, int param2){
+    fputs(tag, fp);
+    fputc('|', fp);// divider char
+    fprintf(fp, format, param1, param2);
     fputc('\n', fp);
     fflush(fp);// flush buffer to file.
 }
 
 void gtloglnWithTagFormatInt4(char * tag, char * format, int param1, int param2, int param3, int param4){
     fputs(tag, fp);
+    fflush(fp);// flush buffer to file.
     fprintf(fp, format, param1, param2, param3, param4);
     fputc('\n', fp);
     fflush(fp);// flush buffer to file.

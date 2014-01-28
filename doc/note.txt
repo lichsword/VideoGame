@@ -15,3 +15,12 @@ contents：
 192 水面交互式模拟
 461 2D镜头光晕
 
+=GDB=
+r:run application
+c:continue
+n:next line, stepping over function calls.
+s:next line, stepping into function calls.
+p <variable>:print variable
+bt:watch function stack
+
+q:quit gdb

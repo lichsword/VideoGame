@@ -1,26 +1,38 @@
+#ifeq ('$(DEBUG)', 'true')
+#$(PROJ): $(OBJS)
+#	$(CC) -g -o $(PROJ) $(OBJS) $(LIBS)
+#$(OBJS): $(PROJ).c $(LOG).c $(MOD).c
+#	$(CC) -g -c $(PROJ).c $(LOG).c $(MOD).c
+#else
+#$(PROJ): $(OBJS)
+#	$(CC) -o $(PROJ) $(OBJS) $(LIBS)
+#$(OBJS): $(PROJ).c $(LOG).c $(MOD).c
+#	$(CC) -c $(PROJ).c $(LOG).c $(MOD).c
+#endif
+#---------------------------------------------
+
 CC = gcc
-
 LIBS = -framework OpenGl -framework GLUT
-
 PROJ = main
 
-OBJ_LOG = gtlog
+COM = gtcommon
+LOG = gtlog
+MOD = gtmod
+# 1:enable 0:disable
+DEBUG = 1
+# debug flag: -g
+DFLAG = -g
+OBJS = $(PROJ).o $(LOG).o $(MOD).o
 
-DEBUG = true
-
-OBJS = $(PROJ).o $(OBJ_LOG).o
-
-ifeq ('$(DEBUG)', 'true')
-$(PROJ): $(OBJS)
-	$(CC) -g -o $(PROJ) $(OBJS) $(LIBS)
-$(OBJS): $(PROJ).c $(OBJ_LOG).c 
-	$(CC) -g -c $(PROJ).c $(OBJ_LOG).c
-else
-$(PROJ): $(OBJS)
-	$(CC) -o $(PROJ) $(OBJS) $(LIBS)
-$(OBJS): $(PROJ).c $(OBJ_LOG).c 
-	$(CC) -c $(PROJ).c $(OBJ_LOG).c
-endif
-
+# link
+$(PROJ):$(OBJS)
+	$(CC) $(DFLAG) -o $(PROJ) $(OBJS) $(LIBS)
+# build
+$(PROJ).o:$(PROJ).c $(LOG).h $(MOD).h $(COM).h
+	$(CC) $(DFLAG) -c $(PROJ).c
+$(LOG).o:$(LOG).c $(COM).h
+	$(CC) $(DFLAG) -c $(LOG).c
+$(MOD).o:$(MOD).c $(LOG).h $(COM).h
+	$(CC) $(DFLAG) -c $(MOD).c
 clean:
 	rm *.o $(PROJ)
