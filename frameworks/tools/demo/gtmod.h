@@ -9,6 +9,6 @@
 
 #include <stdio.h>
 
-void gtmod();
+void gtloadMod();
 
 #endif

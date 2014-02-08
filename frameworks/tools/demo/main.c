@@ -9,8 +9,8 @@
 #define WINDOW_POS_Y 100
 
 typedef struct{
-    int xrot;
-    int yrot;
+    int xRot;
+    int yRot;
 }MouseOper;
 
 int startX;
@@ -18,6 +18,11 @@ int startY;
 int currentX;
 int currentY;
 int windowId;
+
+// gloable variable
+int bCull = 0;
+int bDepth = 1;
+int bOutline = 0;
 
 MouseOper mouseOper;
 
@@ -54,11 +59,11 @@ void onMouseMotion(int x, int y){
     currentX = x;
     currentY = y;
 
-    mouseOper.xrot = (currentY - startY)*180/400;
-    mouseOper.yrot = (currentX - startX)*180/400;
+    mouseOper.xRot = (currentY - startY)*180/400;
+    mouseOper.yRot = (currentX - startX)*180/400;
 //    mouseOper.rotateZ = (currentZ - startZ)/100;
     // rotate
-    gtloglnWithTagFormatInt2("rotate", "xrot=%f, yrot=%f", mouseOper.xrot, mouseOper.yrot);
+    gtloglnWithTagFormatInt2("rotate", "xRot=%f, yRot=%f", mouseOper.xRot, mouseOper.yRot);
 
     glutPostRedisplay();
 }
@@ -76,6 +81,11 @@ void initGlobalRes(void){
     // novel(0.84,0.82,0.71)
     // r,g,b,a
     glClearColor(0.84f, 0.82f, 0.71f, 1.0f);// set clear color value.
+    // TODO load mod 3d
+    gtloadMod();
+
+    glShadeModel(GL_FLAT);// 纯色着色，区别于渐变色 GL_SMOOTH
+    glFrontFace(GL_CW);// 设置顺时针为正面
 }
 
 
@@ -117,8 +127,8 @@ void onKeyboard(unsigned char key, int x, int y){
     // TODO
     gtloglnWithTagFormatChar1("Press key: ", "%c", key);
     if( key == ' ' ){// press space key
-        mouseOper.xrot = 0;
-        mouseOper.yrot = 0;
+        mouseOper.xRot = 0;
+        mouseOper.yRot = 0;
         glutPostRedisplay();
     }else if(key == 'q' | key == 'Q'){
         glutDestroyWindow(windowId);// close window.
@@ -147,19 +157,22 @@ void onMouse(int button, int state, int x, int y){
  */
 void onDisplay(void){
     glClear(GL_COLOR_BUFFER_BIT);// use current color to clear window.
+    glClear(GL_DEPTH_BUFFER_BIT);// clear depth buffer
     // reset matrix
     glLoadIdentity();
 
-    gluLookAt(
-    0.0f, 0.0f, 1.0f,
-    0.0f, 0.0f, 0.0f,
-    0.0f, 1.0f, 0.0f);
-    glRotatef(mouseOper.xrot, 1.0f, 0.0f, 0.0f);
-    glRotatef(mouseOper.yrot, 0.0f, 1.0f, 0.0f);
+   // gluLookAt(
+   // 0.0f, 0.0f, 1.0f,
+   // 0.0f, 0.0f, 0.0f,
+   // 0.0f, 1.0f, 0.0f);
+    //glRotatef(mouseOper.xRot, 1.0f, 0.0f, 0.0f);
+    //glRotatef(mouseOper.yRot, 0.0f, 1.0f, 0.0f);
     //--------
     //glutStrokeLength(GLUT_STROKE_ROMAN, "Show me the Money!");
     //glRectf(-25.0f, 25.0f, 25.0f, -25.0f);// draw a rect with red color
     // start draw lines
+
+    /*
     glBegin(GL_LINES);
         glColor3f(1.0f, 0.0f, 0.0f);// change currnet color to red
         glVertex3f(0.0f, 0.0f, 0.0f);// draw x
@@ -171,10 +184,69 @@ void onDisplay(void){
         glVertex3f(0.0f, 0.0f, 0.0f);// draw z
         glVertex3f(0.0f, 0.0f, 25.0f);
     glEnd();
+    */
+
 //    glRotatef(mouseOper.rotateZ, 0.0f, 0.0f, 1.0f);
     // end draw lines
     // TODO test
-    gtmod();
+    GLfloat x,y,angle;// save position and angle.
+    int iPivot = 1;// save color index.
+
+    // check cull face flag.
+    if(bCull)
+        glEnable(GL_CULL_FACE);
+    else
+        glDisable(GL_CULL_FACE);
+
+    // check depth test flag.
+    if(bDepth)
+        glEnable(GL_DEPTH_TEST);
+    else
+        glDisable(GL_DEPTH_TEST);
+
+    // check outline flag.
+    if(bOutline)
+        glPolygonMode(GL_BACK, GL_LINE);
+    else
+        glPolygonMode(GL_BACK, GL_FILL);
+
+    // save matrix and rotation
+    glPushMatrix();
+    //glRotatef(xRot, 1.0f, 0.0f, 0.0f);
+    //glRotatef(yRot, 0.0f, 1.0f, 0.0f);
+    glRotatef(mouseOper.xRot, 1.0f, 0.0f, 0.0f);
+    glRotatef(mouseOper.yRot, 0.0f, 1.0f, 0.0f);
+
+    // start draw triangle fans
+    glBegin(GL_TRIANGLE_FAN);
+
+    // 画圆锥的顶点
+    glVertex3f(0.0f, 0.0f, 75.0f);
+
+    // draw circle
+    for(angle = 0.0f;  angle < (2.0f * GL_PI); angle += (GL_PI/8.0f))
+    {
+        // count next point pos
+        x = 50.0f * sin(angle);
+        y = 50.0f * cos(angle);
+
+        // toggle red/green color
+        if(iPivot %2 ==0)
+            glColor3f(0.0f, 1.0f, 0.0f);// green color
+        else 
+            glColor3f(1.0f, 0.0f, 0.0f);
+
+        // inc index
+        iPivot ++;
+
+        // draw next point
+        glVertex2f(x, y);
+    }
+
+    glEnd();
+
+    glPopMatrix();
+    // 
     //--------
     //glFlush();// (Single Buffer)force flush screen buffer.
     glutSwapBuffers();// (Double Buffer)swap buffers.

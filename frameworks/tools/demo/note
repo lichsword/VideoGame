@@ -1,2 +1,33 @@
 novel color: R:215 G:210 B:183
              R:0.84 G:0.82 B:0.71
+
+draw point:
+--------------
+glBegin(GL_POINTS);
+glPointSize(2.0f);// set point size (GLFloat)
+glVertex3f(x,y,z);
+glEnd();
+
+draw lines:
+--------------
+glBegin(GL_LINES);
+glVertex3f(x0,y0,z0);// line start point
+glVertex3f(x1,y1,z1);// line end point
+glEnd();
+
+draw lines by strip:
+--------------
+glBegin(GL_LINE_STRIP);
+glLineWidth(2.0f);// set line width (GLFloat);
+glLineStipple(GLint factor, GLushort pattern);// pattern 16bit 0-off/1-on
+glVertext3f(x0,y0,z0);// start point
+glVertext3f(x1,y1,z1);// second point
+...
+glVertext3f(xn,yn,zn);// the n point
+glEnd();
+
+draw triangles
+--------------
+glBegin(GL_TRIANGLES);
+glVertex2f();
+glEnd();
