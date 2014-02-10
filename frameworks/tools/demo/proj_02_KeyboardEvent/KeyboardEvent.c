@@ -1,4 +1,4 @@
-#include "../gtcommon.h"
+#include "../include/gtcommon.h"
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
@@ -7,40 +7,23 @@
 
 int windowId;
 
+/* import code here */
+/**
+ * 键盘响应
+ */
+void onKeyboard(unsigned char key, int x, int y){
+    if(key=='Q' | key=='q'){
+        glutDestroyWindow(windowId);// close window.
+        exit(0);// exit application success.
+    }// end if
+}
+
 /**
  * 初始化外部资源
  */
 void initGlobalRes(void){
     // r,g,b,a
     glClearColor(0.84f, 0.82f, 0.71f, 1.0f);// set clear color value.
-}
-
-/**
- * 当窗口改变时
- */
-void onReshape(int width, int height){
-    GLfloat aspectRatio;// 裁剪比例   
-
-    // 防止
-    if(0==height)
-        height=1;
-    
-    // 把视口设置为窗口大小
-    glViewport(0,0,width, height);
-
-    // 重置坐标系统
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-
-    // 修改视口的裁剪区域为标准: 宽(-100, 100)，高(100, 100)的正方形
-    aspectRatio = (GLfloat) width/ (GLfloat) height;
-    if(width <=height)
-        glOrtho(-100.0, 100.0, -100/aspectRatio, 100.0/aspectRatio, 1.0, -1.0);
-    else
-        glOrtho(-100.0 * aspectRatio, 100.0 * aspectRatio, -100.0, 100.0, 1.0, -1.0);
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
 }
 
 /**
@@ -53,17 +36,6 @@ void onDisplay(void){
     //--------
     //glFlush();// (Single Buffer)force flush screen buffer.
     glutSwapBuffers();// (Double Buffer)swap buffers.
-}
-
-/* import code here */
-/**
- * 键盘响应
- */
-void onKeyboard(unsigned char key, int x, int y){
-    if(key=='Q' | key=='q'){
-        glutDestroyWindow(windowId);// close window.
-        exit(0);// exit application success.
-    }// end if
 }
 
 /**

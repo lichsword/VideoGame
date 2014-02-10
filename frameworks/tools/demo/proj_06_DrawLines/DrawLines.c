@@ -1,10 +1,10 @@
-#include "../gtcommon.h"
+#include "../include/gtcommon.h"
 
 #include <stdio.h>// use sprint() func.
 #include <stdlib.h>// use rand() func.
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
+#define WINDOW_WIDTH 80
+#define WINDOW_HEIGHT 60
 #define WINDOW_POS_X 100
 #define WINDOW_POS_Y 100
 
@@ -47,8 +47,8 @@ void onDisplay(void){
             (float)b/(float)MAX_COLOR);
             // draw point with position.
             glVertex2f(
-            (float)x/(float)WINDOW_WIDTH - 0.5f,
-            (float)y/(float)WINDOW_HEIGHT - 0.5f
+            (float)x/(float)halfWidth - 1.0f,
+            (float)y/(float)halfHeight- 1.0f
             );
         }// end for
     glEnd();

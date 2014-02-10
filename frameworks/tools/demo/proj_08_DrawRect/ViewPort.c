@@ -3,18 +3,20 @@
 #include <stdio.h>// use sprint() func.
 #include <stdlib.h>// use rand() func.
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
-#define WINDOW_POS_X 100
-#define WINDOW_POS_Y 100
+#define WINDOW_WIDTH 80
+#define WINDOW_HEIGHT 60
+#define WINDOW_POS_X halfViewPort
+#define WINDOW_POS_Y halfViewPort
 
 int windowId;// window resource id.
 
-int MAX_COLOR = 100;// max value for rand color.
+float halfViewPort = 100.0f;// half of viewport is 100.0f.
+
+int MAX_COLOR = 255;// max value for rand color.
 int loop;// use for mark index of loop.
 int r,g,b;// record color parts for points.
 int x,y;// record position of points.
-int MAX_POINTS = 100000;// max points display on screen.
+int MAX_POINTS = 1000;// max points display on screen.
 
 /**
  * 界面绘制事件
@@ -31,12 +33,12 @@ void onDisplay(void){
     int doubleWidth = WINDOW_WIDTH * 2;
     int doubleHeight = WINDOW_HEIGHT * 2;
 
-    glBegin(GL_POINTS);
+    glBegin(GL_LINES);
         // loop many time.
         for(loop = 0; loop < MAX_POINTS; loop++){  
             // random color and position.
-            x = rand()%WINDOW_WIDTH;
-            y = rand()%WINDOW_HEIGHT; 
+            x = rand()%(2 * (int)halfViewPort);
+            y = rand()%(2 * (int)halfViewPort); 
             r = rand()%MAX_COLOR;
             g = rand()%MAX_COLOR;
             b = rand()%MAX_COLOR;
@@ -47,12 +49,8 @@ void onDisplay(void){
             (float)b/(float)MAX_COLOR);
             // draw point with position.
             glVertex2f(
-            // 默认的视口是宽[-1.0f, 1.0f] 高[-1.0f, 1.0f]
-            // 所以我们先以[0, WINDOW_WIDTH] / halfWidth = [0, 2.0f]，
-            // 再偏移1.0f为[-1.0f, 1.0f]就可以完全映射到视口上。
-            // 高度上也是相同的机制
-            (float)x/(float)halfWidth - 1.0f,
-            (float)y/(float)halfHeight- 1.0f
+                x - halfViewPort,
+                y - halfViewPort
             );
         }// end for
     glEnd();
@@ -83,6 +81,35 @@ void initGlobalRes(void){
 }
 
 /**
+ * 当窗口改变时
+ */
+void onReshape(int width, int height){
+    GLfloat aspectRatio;// 裁剪比例   
+
+    // 防止
+    if(0==height)
+        height=1;
+    
+    // 把视口设置为窗口大小
+    glViewport(0,0,width, height);
+
+    // 重置坐标系统
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+
+    // 修改视口的裁剪区域为标准: 
+    // 宽(-halfViewPort, halfViewPort)，高(halfViewPort, halfViewPort)的正方形
+    aspectRatio = (GLfloat) width/ (GLfloat) height;
+    if(width <=height)
+        glOrtho(-halfViewPort, halfViewPort, -halfViewPort/aspectRatio, halfViewPort/aspectRatio, 1.0, -1.0);
+    else
+        glOrtho(-halfViewPort * aspectRatio, halfViewPort * aspectRatio, -halfViewPort, halfViewPort, 1.0, -1.0);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+}
+
+/**
  * 主程序入口
  */
 int main(int argc, char * argv[]){
@@ -96,7 +123,7 @@ int main(int argc, char * argv[]){
     // set window pos
     glutInitWindowPosition(WINDOW_POS_X, WINDOW_POS_Y);
     // set window title
-    windowId = glutCreateWindow("Random draw points, (Q)quit.");
+    windowId = glutCreateWindow("Draw Line in New ViewPort, (Q)quit.");
     // set display callback
     glutDisplayFunc(onDisplay);
     // set keyboard callback

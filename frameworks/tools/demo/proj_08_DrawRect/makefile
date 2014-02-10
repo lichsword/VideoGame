@@ -1,6 +1,6 @@
 CC = gcc
 LIBS = -framework OpenGl -framework GLUT
-PROJ = ClearColor
+PROJ = ViewPort
 
 COM = ../include/gtcommon
 # 1:enable 0:disable

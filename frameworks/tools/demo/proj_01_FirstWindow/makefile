@@ -2,7 +2,7 @@ CC = gcc
 LIBS = -framework OpenGl -framework GLUT
 PROJ = FirstWindow
 
-COM = ../gtcommon
+COM = ../include/gtcommon
 # 1:enable 0:disable
 DEBUG = 1
 # debug flag: -g

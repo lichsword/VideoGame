@@ -1,4 +1,4 @@
-#include "../gtcommon.h"
+#include "../include/gtcommon.h"
 
 #include<stdio.h>
 
@@ -41,34 +41,6 @@ void initGlobalRes(void){
 }
 
 /**
- * 当窗口改变时
- */
-void onReshape(int width, int height){
-    GLfloat aspectRatio;// 裁剪比例   
-
-    // 防止
-    if(0==height)
-        height=1;
-    
-    // 把视口设置为窗口大小
-    glViewport(0,0,width, height);
-
-    // 重置坐标系统
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-
-    // 修改视口的裁剪区域为标准: 宽(-100, 100)，高(100, 100)的正方形
-    aspectRatio = (GLfloat) width/ (GLfloat) height;
-    if(width <=height)
-        glOrtho(-100.0, 100.0, -100/aspectRatio, 100.0/aspectRatio, 1.0, -1.0);
-    else
-        glOrtho(-100.0 * aspectRatio, 100.0 * aspectRatio, -100.0, 100.0, 1.0, -1.0);
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-}
-
-/**
  * 界面绘制事件
  */
 void onDisplay(void){
@@ -94,7 +66,7 @@ int main(int argc, char * argv[]){
     // set window pos
     glutInitWindowPosition(WINDOW_POS_X, WINDOW_POS_Y);
     // set window title
-    windowId = glutCreateWindow("Press Q or q to exit application.");
+    windowId = glutCreateWindow("Drag Or click your mouse, (Q)quit.");
     // set display callback
     glutDisplayFunc(onDisplay);
     // set keyboard callback

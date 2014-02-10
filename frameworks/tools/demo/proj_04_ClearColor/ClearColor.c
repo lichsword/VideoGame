@@ -1,4 +1,4 @@
-#include "../gtcommon.h"
+#include "../include/gtcommon.h"
 
 #include<stdio.h>
 
@@ -18,7 +18,7 @@ void onKeyboard(unsigned char key, int x, int y){
         exit(0);// exit application success.
     }// end if
 
-    // TODO import code here.
+    // ----------- import code start -------------
     if(key=='R' | key=='r'){
         glClearColor(1.0f, 0.0f, 0.0f, 0.0f);// red
         glutPostRedisplay();// force redisplay
@@ -42,6 +42,7 @@ void onKeyboard(unsigned char key, int x, int y){
         glutPostRedisplay();// force redisplay
         return;
     }// end if
+    // ----------- import code end ------------
 }
 
 /**
@@ -50,34 +51,6 @@ void onKeyboard(unsigned char key, int x, int y){
 void initGlobalRes(void){
     // r,g,b,a
     glClearColor(0.84f, 0.82f, 0.71f, 1.0f);// yellow
-}
-
-/**
- * 当窗口改变时
- */
-void onReshape(int width, int height){
-    GLfloat aspectRatio;// 裁剪比例   
-
-    // 防止
-    if(0==height)
-        height=1;
-    
-    // 把视口设置为窗口大小
-    glViewport(0,0,width, height);
-
-    // 重置坐标系统
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-
-    // 修改视口的裁剪区域为标准: 宽(-100, 100)，高(100, 100)的正方形
-    aspectRatio = (GLfloat) width/ (GLfloat) height;
-    if(width <=height)
-        glOrtho(-100.0, 100.0, -100/aspectRatio, 100.0/aspectRatio, 1.0, -1.0);
-    else
-        glOrtho(-100.0 * aspectRatio, 100.0 * aspectRatio, -100.0, 100.0, 1.0, -1.0);
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
 }
 
 /**
