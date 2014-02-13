@@ -1,9 +1,10 @@
 #include "../include/gtcommon.h"
+#include "../include/gtlog.h"
 
 #include <stdio.h>// use sprint() func.
 #include <stdlib.h>// use rand() func.
 
-#define WINDOW_WIDTH 80
+#define WINDOW_WIDTH 600
 #define WINDOW_HEIGHT 60
 #define WINDOW_POS_X halfViewPort
 #define WINDOW_POS_Y halfViewPort
@@ -12,66 +13,15 @@ int windowId;// window resource id.
 
 float halfViewPort = 100.0f;// half of viewport is 100.0f.
 
-int MAX_COLOR = 255;// max value for rand color.
-int loop;// use for mark index of loop.
-int r,g,b;// record color parts for points.
-int x,y;// record position of points.
-int MAX_POINTS = 1000;// max points display on screen.
+char buffer[256];
 
 /**
- * 界面绘制事件
+ * 鼠标响应
  */
-void onDisplay(void){
-    glClear(GL_COLOR_BUFFER_BIT);// use current color to clear window.
-    // reset matrix
-    glLoadIdentity();
-
-    //----- import code start --------
-    int halfWidth = WINDOW_WIDTH / 2;
-    int halfHeight = WINDOW_HEIGHT / 2;
-
-    int doubleWidth = WINDOW_WIDTH * 2;
-    int doubleHeight = WINDOW_HEIGHT * 2;
-
-    glBegin(GL_POINTS);
-        // red
-        glColor3f(1.0f, 0.0f, 0.0f);
-
-        // big size.
-        glPointSize(10.0f);
-
-        // center point.
-        glVertex2f(0.0f, 0.0f);
-
-        // a point
-        glVertex2f(10.0f, 0.0f);
-        
-    glEnd();
-
-    // 画一个测试样本
-    glBegin(GL_LINES);
-        glColor3f(1.0f, 0.0f, 0.0f);
-        glVertex2f(0.0f, 100.0f);
-        glVertex2f(100.0f, 0.0f);
-
-        glColor3f(0.0f, 1.0f, 0.0f);
-        glVertex2f(100.0f, 0.0f);
-        glVertex2f(0.0f, -100.0f);
-
-        glColor3f(0.0f, 0.0f, 1.0f);
-        glVertex2f(0.0f, -100.0f);
-        glVertex2f(-100.0f, 0.0f);
-
-        glColor3f(1.0f, 1.0f, 0.0f);
-        glVertex2f(-100.0f, 0.0f);
-        glVertex2f(0.0f, 100.0f);
-                                                                                                        glEnd();
-    //glutPostRedisplay();// force refresh(animation effective).
-    //----- import code end --------
-
-    //--------
-    //glFlush();// (Single Buffer)force flush screen buffer.
-    glutSwapBuffers();// (Double Buffer)swap buffers.
+void onMouse(int button, int state, int x, int y){
+    sprintf(buffer, "[LOG INFO]Mouse event: button=%d, state=%d, x=%d, y=%d", button, state, x, y);
+    gtloglnWithTag("[LOG INFO]", buffer);
+    glutSetWindowTitle(buffer);
 }
 
 /**
@@ -82,11 +32,32 @@ void onKeyboard(unsigned char key, int x, int y){
         glutDestroyWindow(windowId);// close window.
         exit(0);// exit application success.
     }// end if
+
+    // format string.
+    sprintf(buffer, "[LOG INFO]Keyboard Event: key=%c, x=%d, y=%d", key, x, y);
+    gtloglnWithTag("[LOG INFO]", buffer);
+    glutSetWindowTitle(buffer);
 }
+
+/**
+ * 界面绘制事件
+ */
+void onDisplay(void){
+    glClear(GL_COLOR_BUFFER_BIT);// use current color to clear window.
+    // reset matrix
+    glLoadIdentity();
+    //glFlush();// (Single Buffer)force flush screen buffer.
+    glutSwapBuffers();// (Double Buffer)swap buffers.
+}
+
 /**
  * 初始化外部资源
  */
 void initGlobalRes(void){
+    //--------- import code start ---------
+    // init log file
+    gtensureFileWithName("log.data");
+    //--------- import code end ---------
     // r,g,b,a
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);// black
 }
@@ -134,15 +105,17 @@ int main(int argc, char * argv[]){
     // set window pos
     glutInitWindowPosition(WINDOW_POS_X, WINDOW_POS_Y);
     // set window title
-    windowId = glutCreateWindow("Draw Line in New ViewPort, (Q)quit.");
+    windowId = glutCreateWindow("Press keyboard Or drag mouse, (Q)quit.");
     // set display callback
     glutDisplayFunc(onDisplay);
     // set keyboard callback
     glutKeyboardFunc(onKeyboard);
-    //------- import code start --------
+    // mouse callback
+    glutMouseFunc(onMouse);
+    //---------- import code start ----------
     // reshape callback
+    //---------- import code end ----------
     glutReshapeFunc(onReshape);
-    //------- import code end ---------
     // init recource 
     initGlobalRes();
     // start main loop

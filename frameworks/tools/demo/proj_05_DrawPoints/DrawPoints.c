@@ -3,8 +3,8 @@
 #include <stdio.h>// use sprint() func.
 #include <stdlib.h>// use rand() func.
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
+#define WINDOW_WIDTH 80
+#define WINDOW_HEIGHT 60
 #define WINDOW_POS_X 100
 #define WINDOW_POS_Y 100
 
@@ -14,7 +14,9 @@ int MAX_COLOR = 100;// max value for rand color.
 int loop;// use for mark index of loop.
 int r,g,b;// record color parts for points.
 int x,y;// record position of points.
-int MAX_POINTS = 100000;// max points display on screen.
+int size;// record size of points.
+int MAX_POINTS = 10;// max points display on screen.
+int MAX_SIZE = 100;// max size of point.
 
 /**
  * 界面绘制事件
@@ -40,11 +42,15 @@ void onDisplay(void){
             r = rand()%MAX_COLOR;
             g = rand()%MAX_COLOR;
             b = rand()%MAX_COLOR;
+            size = rand()%MAX_SIZE;
+
             // set color.
             glColor3f(
             (float)r/(float)MAX_COLOR,
             (float)g/(float)MAX_COLOR,
             (float)b/(float)MAX_COLOR);
+            // size
+            glPointSize((float)size);
             // draw point with position.
             glVertex2f(
             // 默认的视口是宽[-1.0f, 1.0f] 高[-1.0f, 1.0f]
@@ -57,7 +63,7 @@ void onDisplay(void){
         }// end for
     glEnd();
 
-    glutPostRedisplay();// force refresh(animation effective).
+    // glutPostRedisplay();// force refresh(animation effective).
     //----- import code end --------
 
     //--------

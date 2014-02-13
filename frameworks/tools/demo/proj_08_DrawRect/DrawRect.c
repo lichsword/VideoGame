@@ -15,8 +15,8 @@ float halfViewPort = 100.0f;// half of viewport is 100.0f.
 int MAX_COLOR = 255;// max value for rand color.
 int loop;// use for mark index of loop.
 int r,g,b;// record color parts for points.
-int x,y;// record position of points.
-int MAX_POINTS = 1000;// max points display on screen.
+int l,t,r,b;// record left,top,right,bottom of rects.
+int MAX_POINTS = 1;// max points display on screen.
 
 /**
  * 界面绘制事件
@@ -27,26 +27,44 @@ void onDisplay(void){
     glLoadIdentity();
 
     //----- import code start --------
-    int halfWidth = WINDOW_WIDTH / 2;
-    int halfHeight = WINDOW_HEIGHT / 2;
+    
+    // loop many time.
+    for(loop = 0; loop < MAX_POINTS; loop++){  
+        // random color
+        r = rand()%MAX_COLOR;
+        g = rand()%MAX_COLOR;
+        b = rand()%MAX_COLOR;
+        // set color.
+        glColor3f(
+        (float)r/(float)MAX_COLOR,
+        (float)g/(float)MAX_COLOR,
+        (float)b/(float)MAX_COLOR);
 
-    int doubleWidth = WINDOW_WIDTH * 2;
-    int doubleHeight = WINDOW_HEIGHT * 2;
+        // random position
+        // set left and right value.
+        int m,n,r;
+        m = rand()%(2 * (int)halfViewPort);
+        n = rand()%(2 * (int)halfViewPort); 
+        if(m>n){
+            r = m; m = n; n=r;
+        }// end if
 
-    glBegin(GL_POINTS);
-        // red
-        glColor3f(1.0f, 0.0f, 0.0f);
+        l = m - halfViewPort;// set left.
+        r = n - halfViewPort;// set right.
 
-        // big size.
-        glPointSize(10.0f);
+        // set top and bottom value.
+        m = rand()%(2 * (int)halfViewPort);
+        n = rand()%(2 * (int)halfViewPort); 
+        if(m>n){
+            r = m; m = n; n=r;
+        }// end if
 
-        // center point.
-        glVertex2f(0.0f, 0.0f);
+        t = m - halfViewPort;// set top.
+        b = n - halfViewPort;// set bottom.
 
-        // a point
-        glVertex2f(10.0f, 0.0f);
-        
-    glEnd();
+        // (left, top, right, bottom)
+        glRectf(l, t, r, b);
+    }// end for
 
     // 画一个测试样本
     glBegin(GL_LINES);
@@ -65,7 +83,7 @@ void onDisplay(void){
         glColor3f(1.0f, 1.0f, 0.0f);
         glVertex2f(-100.0f, 0.0f);
         glVertex2f(0.0f, 100.0f);
-                                                                                                        glEnd();
+    glEnd();
     //glutPostRedisplay();// force refresh(animation effective).
     //----- import code end --------
 
@@ -134,15 +152,15 @@ int main(int argc, char * argv[]){
     // set window pos
     glutInitWindowPosition(WINDOW_POS_X, WINDOW_POS_Y);
     // set window title
-    windowId = glutCreateWindow("Draw Line in New ViewPort, (Q)quit.");
+    windowId = glutCreateWindow("Draw Rect in New ViewPort, (Q)quit.");
     // set display callback
     glutDisplayFunc(onDisplay);
     // set keyboard callback
     glutKeyboardFunc(onKeyboard);
-    //------- import code start --------
+    //---------- import code start ----------
     // reshape callback
+    //---------- import code end ----------
     glutReshapeFunc(onReshape);
-    //------- import code end ---------
     // init recource 
     initGlobalRes();
     // start main loop

@@ -14,7 +14,7 @@ int MAX_COLOR = 100;// max value for rand color.
 int loop;// use for mark index of loop.
 int r,g,b;// record color parts for points.
 int x,y;// record position of points.
-int MAX_POINTS = 100000;// max points display on screen.
+int MAX_POINTS = 10;// max points display on screen.
 
 /**
  * 界面绘制事件
@@ -32,6 +32,15 @@ void onDisplay(void){
     int doubleHeight = WINDOW_HEIGHT * 2;
 
     glBegin(GL_LINES);
+        // 画一条边界测试样本从左下角至右上角
+        glColor3f(1.0f, 0.0f, 0.0f);
+        glVertex2f(-1.0f, -1.0f);
+        glVertex2f(1.0f, 1.0f);
+
+        glColor3f(0.0f, 1.0f, 0.0f);
+        glVertex2f(0.0f, 1.0f);
+        glVertex2f(1.0f, 1.0f);
+        
         // loop many time.
         for(loop = 0; loop < MAX_POINTS; loop++){  
             // random color and position.

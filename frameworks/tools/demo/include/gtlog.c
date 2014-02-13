@@ -1,0 +1,115 @@
+// gtlog.c
+// Game Tool log.c
+// Lichsword Video Game Enginee
+//
+// Report bugs to lichswordkernel@gmail.com
+#include "gtcommon.h"
+#include "gtlog.h"
+
+FILE * fp = NULL;// define
+char DEFAULT_FILE_NAME[] = "log.data";
+
+boolean gtensureFile(){
+   return gtensureFileWithName(DEFAULT_FILE_NAME);
+}
+
+boolean gtensureFileWithName(char * filename){
+    boolean result = false;
+    if (fp == NULL){
+        // try open file
+        fp = fopen(DEFAULT_FILE_NAME, "w+");
+    }// end if
+
+    // check
+    result = (fp==NULL);
+    return result;
+}
+
+void destory(){
+    if (NULL != fp){
+        fclose(fp);
+    }// end if
+}
+
+void gtlog(char * msg){
+    if(NULL == fp){
+        printf("log file not opened.");
+        return;
+    }// end if
+    fputs(msg, fp);
+    fflush(fp);// flush buffer to file.
+}
+
+void gtlogln(char * msg){
+    fputs(msg, fp);
+    fputc('\n', fp);
+    fflush(fp);// flush buffer to file.
+}
+
+void gtlogWithTag(char * tag, char * msg){
+    fputs(tag, fp);
+    fputc('|', fp);// divider char
+    fputs(msg, fp);
+    fflush(fp);// flush buffer to file.
+}
+
+void gtloglnWithTag(char * tag, char * msg){
+    gtlogWithTag(tag, msg);
+    fputc('\n', fp); 
+    fflush(fp);// flush buffer to file.
+}
+
+void gtloglnWithTagFormatInt1(char * tag, char * format, int param){
+    fputs(tag, fp);
+    fputc('|', fp);// divider char
+    fprintf(fp, format, param);
+    fputc('\n', fp);
+    fflush(fp);// flush buffer to file.
+}
+
+void gtloglnWithTagFormatInt2(char * tag, char * format, int p1, int p2){
+    fputs(tag, fp);
+    fputc('|', fp);// divider char
+    fprintf(fp, format, p1, p2);
+    fputc('\n', fp);
+    fflush(fp);// flush buffer to file.
+}
+
+void gtloglnWithTagFormatInt3(char * tag, char * format, int p1, int p2, int p3){
+    fputs(tag, fp);
+    fputc('|', fp);// divider char
+    fprintf(fp, format, p1, p2, p3);
+    fputc('\n', fp);
+    fflush(fp);// flush buffer to file.
+}
+
+void gtloglnWithTagFormatInt4(char * tag, char * format, int p1, int p2, int p3, int p4){
+    fputs(tag, fp);
+    fflush(fp);// flush buffer to file.
+    fprintf(fp, format, p1, p2, p3, p4);
+    fputc('\n', fp);
+    fflush(fp);// flush buffer to file.
+}
+void gtloglnWithTagFormatChar1(char * tag, char * format, unsigned char param){
+    fputs(tag, fp);
+    fputc('|', fp);// divider char
+    fprintf(fp, format, param);
+    fputc('\n', fp);
+    fflush(fp);// flush buffer to file.
+}
+
+void gtloglnWithTagFormatFloat1(char * tag, char * format, float param){
+    fputs(tag, fp);
+    fputc('|', fp);// divider char
+    fprintf(fp, format, param);
+    fputc('\n', fp);
+    fflush(fp);// flush buffer to file.
+}
+
+void gtloglnWithTagFormatFloat2(char * tag, char * format, float param1, float param2){
+    fputs(tag, fp);
+    fputc('|', fp);// divider char
+    fprintf(fp, format, param1, param2);
+    fputc('\n', fp);
+    fflush(fp);// flush buffer to file.
+}
