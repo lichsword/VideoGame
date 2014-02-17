@@ -5,12 +5,12 @@
 
 #define WINDOW_WIDTH 80
 #define WINDOW_HEIGHT 60
-#define WINDOW_POS_X halfViewPort
-#define WINDOW_POS_Y halfViewPort
+#define WINDOW_POS_X nRange
+#define WINDOW_POS_Y nRange
 
 int windowId;// window resource id.
 
-float halfViewPort = 100.0f;// half of viewport is 100.0f.
+float nRange = 100.0f;// clip range.
 
 int MAX_COLOR = 255;// max value for rand color.
 int loop;// use for mark index of loop.
@@ -109,12 +109,13 @@ void onReshape(int width, int height){
     glLoadIdentity();
 
     // 修改视口的裁剪区域为标准: 
-    // 宽(-halfViewPort, halfViewPort)，高(halfViewPort, halfViewPort)的正方形
+    // 宽(-nRange, nRange)，高(nRange, nRange)的正方形
     aspectRatio = (GLfloat) width/ (GLfloat) height;
+    // 建立裁剪区域(左、右、底、顶、近、远）
     if(width <=height)
-        glOrtho(-halfViewPort, halfViewPort, -halfViewPort/aspectRatio, halfViewPort/aspectRatio, 1.0, -1.0);
+        glOrtho(-nRange, nRange, -nRange/aspectRatio, nRange/aspectRatio, -nRange, nRange);
     else
-        glOrtho(-halfViewPort * aspectRatio, halfViewPort * aspectRatio, -halfViewPort, halfViewPort, 1.0, -1.0);
+        glOrtho(-nRange * aspectRatio, nRange * aspectRatio, -nRange, nRange, -nRange, nRange);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();

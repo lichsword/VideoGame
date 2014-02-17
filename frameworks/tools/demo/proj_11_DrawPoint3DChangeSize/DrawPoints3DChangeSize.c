@@ -4,16 +4,73 @@
 #include <stdio.h>// use sprint() func.
 #include <stdlib.h>// use rand() func.
 
-#define WINDOW_WIDTH 600
-#define WINDOW_HEIGHT 60
+#define WINDOW_WIDTH 300
+#define WINDOW_HEIGHT 300
 #define WINDOW_POS_X nRange
 #define WINDOW_POS_Y nRange
 
 int windowId;// window resource id.
 
-float nRange = 100.0f;// clip range.
+float nRange = 100.0f;// half of viewport is 100.0f.
 
 char buffer[256];
+
+/**
+ * 界面绘制事件
+ */
+void onDisplay(){
+    GLfloat x,y,z,angle;// position and angle
+    GLfloat size = 1.0f;// point size.
+
+    GLfloat xRot = 45.0f;
+    GLfloat yRot = 45.5f;
+
+    glClear(GL_COLOR_BUFFER_BIT);// use current color to clean bg.
+
+    glPushMatrix();
+    glRotatef(xRot, 1.0f, 0.0f, 0.0f);
+    glRotatef(yRot, 0.0f, 1.0f, 0.0f);
+
+    float range = 50.0f;
+    z = 0.0f;
+    glColor3f(1.0f, 1.0f, 1.0f);
+
+    for(angle=0.0f; angle<=50.0f; angle += 0.1f){
+        x = range * sin(angle);
+        y = range * cos(angle);
+//------ 核心代码--------
+        glPointSize(size);// 必须在 glBegin(GL_POINTS)之前调用。否则不起作用
+        // draw point
+        glBegin(GL_POINTS);
+            glVertex3f(x, y, z);
+        glEnd();
+//------ 核心代码--------
+
+        z += 0.1f;
+        range -= 0.05f;
+        size += 0.01f;
+        gtloglnWithTagFormatFloat2("point","(x=%f, y=%f)", x, y);
+    }
+    
+    
+    glPopMatrix();
+     
+
+    // glFlush();// (single Buffer) force flush screen buffer.
+    glutSwapBuffers();// (Double Buffer) swap buffers.
+   
+}
+/**
+ * 初始化外部资源
+ */
+void initGlobalRes(void){
+    //--------- import code start ---------
+    // init log file
+    gtensureFileWithName("log.data");
+    //--------- import code end ---------
+    // r,g,b,a
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);// black
+}
 
 /**
  * 鼠标响应
@@ -32,34 +89,6 @@ void onKeyboard(unsigned char key, int x, int y){
         glutDestroyWindow(windowId);// close window.
         exit(0);// exit application success.
     }// end if
-
-    // format string.
-    sprintf(buffer, "[LOG INFO]Keyboard Event: key=%c, x=%d, y=%d", key, x, y);
-    gtloglnWithTag("[LOG INFO]", buffer);
-    glutSetWindowTitle(buffer);
-}
-
-/**
- * 界面绘制事件
- */
-void onDisplay(void){
-    glClear(GL_COLOR_BUFFER_BIT);// use current color to clear window.
-    // reset matrix
-    glLoadIdentity();
-    //glFlush();// (Single Buffer)force flush screen buffer.
-    glutSwapBuffers();// (Double Buffer)swap buffers.
-}
-
-/**
- * 初始化外部资源
- */
-void initGlobalRes(void){
-    //--------- import code start ---------
-    // init log file
-    gtensureFileWithName("log.data");
-    //--------- import code end ---------
-    // r,g,b,a
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);// black
 }
 
 /**
@@ -113,9 +142,7 @@ int main(int argc, char * argv[]){
     glutKeyboardFunc(onKeyboard);
     // mouse callback
     glutMouseFunc(onMouse);
-    //---------- import code start ----------
     // reshape callback
-    //---------- import code end ----------
     glutReshapeFunc(onReshape);
     // init recource 
     initGlobalRes();

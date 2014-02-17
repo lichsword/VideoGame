@@ -4,14 +4,14 @@
 #include <stdio.h>// use sprint() func.
 #include <stdlib.h>// use rand() func.
 
-#define WINDOW_WIDTH 300
-#define WINDOW_HEIGHT 300
-#define WINDOW_POS_X halfViewPort
-#define WINDOW_POS_Y halfViewPort
+#define WINDOW_WIDTH 100
+#define WINDOW_HEIGHT 100
+#define WINDOW_POS_X nRange
+#define WINDOW_POS_Y nRange
 
 int windowId;// window resource id.
 
-float halfViewPort = 50.0f;// half of viewport is 100.0f.
+float nRange = 100.0f;// half of viewport is 100.0f.
 
 char buffer[256];
 
@@ -21,14 +21,14 @@ char buffer[256];
 void onDisplay(){
     GLfloat x,y,z,angle;// position and angle
 
-    GLfloat xRot = 1.0f;
-    GLfloat yRot = 0.5f;
+    GLfloat xRot = 45.0f;
+    GLfloat yRot = 45.5f;
 
     glClear(GL_COLOR_BUFFER_BIT);// use current color to clean bg.
 
     glPushMatrix();
     glRotatef(xRot, 1.0f, 0.0f, 0.0f);
-    //glRotatef(yRot, 0.0f, 1.0f, 0.0f);
+    glRotatef(yRot, 0.0f, 1.0f, 0.0f);
    
     // draw line
     glBegin(GL_LINES);
@@ -44,15 +44,15 @@ void onDisplay(){
     z = 0.0f;
     glColor3f(1.0f, 1.0f, 1.0f);
     //for(angle=0.0f; angle<=(2.0f*3.14f)*3; angle +=0.1f){
-    for(angle=0.0f; angle<=100.0f; angle += 0.1f){
+    for(angle=0.0f; angle<=50.0f; angle += 0.1f){
         // TODO
         x = range * sin(angle);
         y = range * cos(angle);
 
         //glVertex2f(x, y);
         glVertex3f(x, y, z);
-        z -= 0.005f;
-        range -= 0.2f;
+        z += 0.1f;
+        range -= 0.05f;
         gtloglnWithTagFormatFloat2("point","(x=%f, y=%f)", x, y);
     }
 
@@ -125,12 +125,13 @@ void onReshape(int width, int height){
     glLoadIdentity();
 
     // 修改视口的裁剪区域为标准: 
-    // 宽(-halfViewPort, halfViewPort)，高(halfViewPort, halfViewPort)的正方形
+    // 宽(-nRange, nRange)，高(nRange, nRange)的正方形
     aspectRatio = (GLfloat) width/ (GLfloat) height;
+    // 建立裁剪区域（左、右、底、顶、近、远）
     if(width <=height)
-        glOrtho(-halfViewPort, halfViewPort, -halfViewPort/aspectRatio, halfViewPort/aspectRatio, 1.0, -1.0);
+        glOrtho(-nRange, nRange, -nRange/aspectRatio, nRange/aspectRatio, -nRange, nRange);
     else
-        glOrtho(-halfViewPort * aspectRatio, halfViewPort * aspectRatio, -halfViewPort, halfViewPort, 1.0, -1.0);
+        glOrtho(-nRange * aspectRatio, nRange * aspectRatio, -nRange, nRange, -nRange, nRange);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();

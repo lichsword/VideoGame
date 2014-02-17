@@ -1,22 +1,12 @@
-[LOG INFO]|[LOG INFO]Keyboard Event: key=s, x=948, y=402
-[LOG INFO]|[LOG INFO]Keyboard Event: key=d, x=580, y=168
-[LOG INFO]|[LOG INFO]Keyboard Event: key=s, x=555, y=135
-[LOG INFO]|[LOG INFO]Keyboard Event: key=d, x=515, y=98
-[LOG INFO]|[LOG INFO]Keyboard Event: key=a, x=482, y=50
-[LOG INFO]|[LOG INFO]Keyboard Event: key=s, x=478, y=43
-[LOG INFO]|[LOG INFO]Keyboard Event: key=d, x=478, y=43
-[LOG INFO]|[LOG INFO]Keyboard Event: key=a, x=478, y=43
-[LOG INFO]|[LOG INFO]Keyboard Event: key=s, x=478, y=43
-[LOG INFO]|[LOG INFO]Keyboard Event: key=d, x=478, y=43
-[LOG INFO]|[LOG INFO]Mouse event: button=0, state=0, x=478, y=43
-[LOG INFO]|[LOG INFO]Mouse event: button=0, state=1, x=478, y=43
-[LOG INFO]|[LOG INFO]Mouse event: button=0, state=0, x=478, y=43
-[LOG INFO]|[LOG INFO]Mouse event: button=0, state=1, x=478, y=43
-[LOG INFO]|[LOG INFO]Mouse event: button=0, state=0, x=478, y=43
-[LOG INFO]|[LOG INFO]Mouse event: button=0, state=1, x=478, y=43
-[LOG INFO]|[LOG INFO]Keyboard Event: key=a, x=478, y=43
-[LOG INFO]|[LOG INFO]Keyboard Event: key=s, x=478, y=43
-[LOG INFO]|[LOG INFO]Keyboard Event: key=d, x=478, y=43
-[LOG INFO]|[LOG INFO]Keyboard Event: key=a, x=478, y=43
-[LOG INFO]|[LOG INFO]Keyboard Event: key=s, x=478, y=43
-[LOG INFO]|[LOG INFO]Keyboard Event: key=d, x=478, y=43
+[LOG INFO]|[LOG INFO]Mouse event: button=0, state=0, x=370, y=20
+[LOG INFO]|[LOG INFO]Mouse event: button=0, state=1, x=370, y=20
+[LOG INFO]|[LOG INFO]Mouse event: button=0, state=0, x=347, y=18
+[LOG INFO]|[LOG INFO]Mouse event: button=0, state=1, x=347, y=18
+[LOG INFO]|[LOG INFO]Keyboard Event: key=s, x=347, y=18
+[LOG INFO]|[LOG INFO]Keyboard Event: key=a, x=347, y=18
+[LOG INFO]|[LOG INFO]Keyboard Event: key=d, x=347, y=18
+[LOG INFO]|[LOG INFO]Keyboard Event: key=a, x=344, y=23
+[LOG INFO]|[LOG INFO]Keyboard Event: key=s, x=343, y=25
+[LOG INFO]|[LOG INFO]Keyboard Event: key=d, x=343, y=26
+[LOG INFO]|[LOG INFO]Mouse event: button=0, state=0, x=343, y=28
+[LOG INFO]|[LOG INFO]Mouse event: button=0, state=1, x=343, y=28
