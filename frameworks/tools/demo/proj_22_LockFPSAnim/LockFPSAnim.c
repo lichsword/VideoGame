@@ -1,5 +1,5 @@
 /**
- * 画三角形序列
+ * 画圆锥
  */
 #include "../include/gtcommon.h"
 #include "../include/gtlog.h"
@@ -17,6 +17,8 @@ int windowId;// window resource id.
 float nRange = 100.0f;// half of viewport is 100.0f.
 
 char buffer[256];
+GLfloat xRot = 80.0f;
+GLfloat yRot = 45.5f;
 
 /**
  * 界面绘制事件
@@ -25,13 +27,11 @@ void onDisplay(){
     GLfloat x,y,z,angle;// position and angle
     GLfloat size = 1.0f;// point size.
 
-    GLfloat xRot = 45.0f;
-    GLfloat yRot = 45.5f;
 
     glClear(GL_COLOR_BUFFER_BIT);// use current color to clean bg.
 
     glPushMatrix();
-    //glRotatef(xRot, 1.0f, 0.0f, 0.0f);
+    glRotatef(xRot, 1.0f, 0.0f, 0.0f);
     //glRotatef(yRot, 0.0f, 1.0f, 0.0f);
 
     float range = 50.0f;
@@ -39,31 +39,35 @@ void onDisplay(){
 //------ 核心代码--------
     // 画三角形使用连续的3个顶点
     float factor = 50;// 缩放因子(我是在草稿纸上以1.0f为单位画的，所以视口上要*50)
-    glBegin(GL_TRIANGLE_FAN);// 开始画直线
-        // triangle 1
-        glColor3f(0.0f, 1.0f, 0.0f);// 设置前景色为绿色
-        glVertex3f(0, 0, 0);
-        glVertex3f(-2.0f*factor, 0, 0);
-        glVertex3f(-1.0f*factor, -1.732f*factor, 0);
+    int nIndex = 0;
+    gtloglnWithTagFormatFloat1("INFO", "xRot=%f", xRot);
 
-        // triangle 2
-        glColor3f(1.0f, 0.0f, 0.0f);// 设置前景色为红色
-        glVertex3f(1.0f*factor, -1.732f*factor, 0);
-        // triangle 3
-        glColor3f(0.0f, 1.0f, 0.0f);// 设置前景色为绿色
-        glVertex3f(2.0f*factor, 0, 0);
-        // triangle 4
-        glColor3f(1.0f, 0.0f, 0.0f);// 设置前景色为红色
-        glVertex3f(1.0f*factor, 1.732f*factor, 0);
-        // triangle 5
-        glColor3f(0.0f, 1.0f, 0.0f);// 设置前景色为绿色
-        glVertex3f(-1.0f*factor, 1.732f*factor, 0);
-        // triangle 6
-        glColor3f(1.0f, 0.0f, 0.0f);// 设置前景色为绿色
-        glVertex3f(-2.0f*factor, 0, 0);
+    glBegin(GL_TRIANGLE_FAN);// 开始画直线
+        glVertex3f(0, 0, -50.0f);// 圆锥的顶点
+        for(angle = 0.0f, nIndex=0; angle<2*GL_PI; angle+=0.3f, nIndex++){
+            // change color.
+            if(nIndex%2==0)
+                glColor3f(1.0f, 0.0f, 0.0f);// 设置前景色为红色
+            else
+                glColor3f(0.0f, 1.0f, 0.0f);// 设置前景色为绿色
+            // count x,y
+            x = range * cos(angle);
+            y = range * sin(angle);
+            // draw next vertex
+            glVertex3f(x, y, 0);
+        }// end if
+        
+        // 画最后一个点，来封口
+        glVertex3f(50.0f, 0, 0);
     glEnd();
-//------ 核心代码--------
+
     glPopMatrix();
+
+    xRot += 1.0f;
+    yRot += 1.0f;
+    usleep(30);// sleep 30 msecond.
+//------ 核心代码--------
+    glutPostRedisplay();
 
     // glFlush();// (single Buffer) force flush screen buffer.
     glutSwapBuffers();// (Double Buffer) swap buffers.

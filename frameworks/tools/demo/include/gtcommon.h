@@ -16,6 +16,7 @@
 #include <OpenGL/glext.h>
 #include <GLUT/glut.h>
 #include <sys/time.h>
+#include <unistd.h>
 
 #else
     // Assuming Linux
@@ -24,6 +25,7 @@
 #include <GL/glut.h>
 #include <GL/glext.h>
 #include <sys/time.h>
+#include <unistd.h>
 
 #endif
 
@@ -31,7 +33,6 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
-
 
 #define boolean int
 #define false 0
