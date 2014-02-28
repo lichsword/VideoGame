@@ -46,7 +46,11 @@ void drawGround(void){
 void onDisplay(){
     int i;
     static GLfloat yRot = 0.0f;
-
+    /**
+     * 相机帧数据
+     */
+    static GLTFrame frameCamera;
+    // TODO
     yRot += 0.5f;
 
     // 清除颜色和深度缓冲
@@ -54,12 +58,12 @@ void onDisplay(){
 
 //------ 核心代码--------
     glPushMatrix();
-
     // 应用相机变换
 //    gltApplyCameraTransform(&frameCamera);
     // 绘制线框立方体
     drawGround();
     
+    gluLookAt(
     glPopMatrix();
 //------ 核心代码--------
 

@@ -1,5 +1,5 @@
 /**
- * 使用键盘交互操控线框与着色模式切换
+ * 着色的球体太阳与月亮进行环绕动画（透视效果：近大远小）
  */
 #include "../include/gtcommon.h"
 #include "../include/gtlog.h"
@@ -25,48 +25,61 @@ float angle1;
  * 界面绘制事件
  */
 void onDisplay(){
-    GLfloat x,y,z;// position and angle
-    GLfloat x1,y1,z1;// position and angle
+    // 地球和月球的旋转角度
+    static float fEarthRot = 0.0f;
+    static float fMoonRot = 0.0f;
 
-    GLfloat size = 1.0f;// point size.
+    static GLTVector3 lightPos = {0, 10.0f, 10.0f};
 
-    GLfloat xRot = 30.0f;
-    GLfloat yRot = 120.0f;
+    // 用当前清除颜色清除窗口
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glClear(GL_COLOR_BUFFER_BIT);// use current color to clean bg.
-
-//------ 核心代码--------
+    // 保存矩阵状态并进行旋转
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
 
-    angle += 0.05f;
-    angle1 += 0.1f;
+    // 把整个场景移动到视图中
+    glTranslatef(0.0f, 0.0f, -300.0f);
     
-    x = 30 * cos(angle);
-    y = 30 * sin(angle);
-    /**
-     * 这里很关键，一定要把物品放在很真远的地方，同时要存在于裁剪区域内。
-     */
-    z = -255;
+    // 设置材料颜色，太阳为黄色
+    glColor3ub(255, 255, 0); //red + green = yellow. 
+    glDisable(GL_LIGHTING);// 禁用光照
+    glutSolidSphere(15.0f, 15, 15);
+    glEnable(GL_LIGHTING);// 启用光照
 
-    // 复位矩阵，让当前平移矩阵复位到原始点（0,0,0）
-    glLoadIdentity();
-    // 指定位置
-    glTranslatef(x, y, z);
-    // 绘制线框立方体
-    glutWireCube(40.0f);
+    // 在绘制太阳之后，放置光源
+    glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
 
-    glPopMatrix();
-//------ 核心代码--------
+    // 旋转坐标系统
+    glRotatef(fEarthRot, 0.0f, 1.0f, 0.0f);
+    // 绘制地球
+    glColor3ub(0, 0, 255);// 地球为蓝色
+    glTranslatef(105.0f, 0, 0);
+    glutSolidSphere(15.0f, 15, 15);
 
-    usleep(33333);
-    /**
-     * 刷新
-     */
-    glutPostRedisplay();
-    // glFlush();// (single Buffer) force flush screen buffer.
-    glutSwapBuffers();// (Double Buffer) swap buffers.
-   
+    // 根据地球的坐标进行旋转，并绘制月球
+    glColor3ub(200, 200, 200);
+    glRotatef(fMoonRot, 0.0f, 1.0f, 0.0f);
+    glTranslatef(30.0f, 0.0f, 0.0f);
+    fMoonRot += 15.0f;
+    if(fMoonRot > 360.0f){
+        fMoonRot = 0.0f;// reset
+    }// end if
+
+    glutSolidSphere(6.0f, 15, 15);
+
+    // 恢复矩阵状态
+    glPopMatrix();// 现在是模型视图状态
+    
+    // 每次绕轨道旋转5度
+    fEarthRot += 5.0f;
+    if(fEarthRot > 360.0f){
+        fEarthRot = 0.0f;
+    }// end if
+    // TODO 还是一片黑，不知道为什么?
+    glutPostRedisplay(); 
+    // 刷新双缓冲界面
+    glutSwapBuffers(); 
 }
 /**
  * 初始化外部资源
@@ -115,31 +128,21 @@ void onReshape(int width, int height){
     glViewport(0,0,width, height);
 
     //--------- 核心代码 TODO ---------
-    // 矩阵模式改为透视模式
+    // 设置为【透视模式】
     glMatrixMode(GL_PROJECTION);
-    // 重置坐标系统
+    // 重置矩阵系统
     glLoadIdentity();
 
     // 修改视口的裁剪区域为标准: 
     // 宽(-nRange, nRange)，高(nRange, nRange)的正方形
     aspectRatio = (GLfloat) width/ (GLfloat) height;
-    // 建立裁剪区域（左、右、底、顶、近、远）
-    /**
-     * TODO 请阅读这里
-     * 不再需要调用  glOrtho()函数了，取代的是 gluPerspective()
-     * 即，由正投视改为透视投影。
-     */
-    //if(width <=height)
-        //glOrtho(-nRange, nRange, -nRange/aspectRatio, nRange/aspectRatio, -nRange, nRange);
-    //else
-        //glOrtho(-nRange * aspectRatio, nRange * aspectRatio, -nRange, nRange, -nRange, nRange);
 
     // 产生透视投影
     GLdouble fovy = 45.0f;
     GLdouble zNear = 100.0f;
     GLdouble zFar = 400.0f;
     gluPerspective(fovy, aspectRatio, zNear, zFar);
-    // 矩阵模式要复位为 模型视图
+    // 复位【模型视图】
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     //--------- 核心代码 TODO ---------
