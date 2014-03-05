@@ -39,31 +39,64 @@ void drawGround(void){
         }// end if
     glEnd();
 }
+/**
+ * 每帧旋转相机位置
+ * 注意：本示例中，只通过修改相机的视点坐标，来实现旋转效果。
+ * 同理也可以实现相机的平移效果。
+ */
+void rotateCamera(){
 
+    static GLfloat yRot = 0.0f;
+    static float forwardX;
+    static float forwardY;
+    
+    yRot += 0.1f;
+    forwardX = 50*cos(yRot);
+    forwardY = 50*sin(yRot);
+
+    // 应用相机变换
+    frameCamera.vLocation[0] = 0;
+    frameCamera.vLocation[1] = 0;
+    frameCamera.vLocation[2] = 0;
+
+    frameCamera.vForward[0] = forwardX;//10;
+    frameCamera.vForward[1] = 0;
+    frameCamera.vForward[2] = forwardY;//10;
+
+    frameCamera.vUp[0] = 0;
+    frameCamera.vUp[1] = 10;
+    frameCamera.vUp[2] = 0;
+
+    gluLookAt(
+        frameCamera.vLocation[0],
+        frameCamera.vLocation[1],
+        frameCamera.vLocation[2],
+        frameCamera.vForward[0],
+        frameCamera.vForward[1],
+        frameCamera.vForward[2],
+        frameCamera.vUp[0],
+        frameCamera.vUp[1],
+        frameCamera.vUp[2]);
+}
 /**
  * 界面绘制事件
  */
 void onDisplay(){
     int i;
-    static GLfloat yRot = 0.0f;
     /**
      * 相机帧数据
      */
     static GLTFrame frameCamera;
-    // TODO
-    yRot += 0.5f;
 
     // 清除颜色和深度缓冲
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 //------ 核心代码--------
     glPushMatrix();
-    // 应用相机变换
-//    gltApplyCameraTransform(&frameCamera);
+    // 旋转相机
+    rotateCamera();
     // 绘制线框立方体
     drawGround();
-    
-    gluLookAt(
     glPopMatrix();
 //------ 核心代码--------
 
