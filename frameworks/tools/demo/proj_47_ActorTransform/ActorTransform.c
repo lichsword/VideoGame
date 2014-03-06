@@ -18,44 +18,85 @@ float nRange = 100.0f;// half of viewport is 100.0f.
 
 char buffer[256];
 
-float angle;
-float angle1;
+GLTFrame frameCamera;
 
+/**
+ * 绘制地平面
+ */
+void drawGround(void){
+    GLfloat fExtent = 20.0f;
+    GLfloat fStep = 1.0f;
+    GLfloat y = -1.5f;
+    GLint iLine;
+
+    glBegin(GL_LINES);
+        for(iLine=-fExtent; iLine<=fExtent; iLine+=fStep){
+            glVertex3f(iLine, y, fExtent);
+            glVertex3f(iLine, y, -fExtent);
+
+            glVertex3f(fExtent, y, iLine);
+            glVertex3f(-fExtent, y, iLine);
+        }// end if
+    glEnd();
+}
+/**
+ * 每帧旋转相机位置
+ * 注意：本示例中，只通过修改相机的视点坐标，来实现旋转效果。
+ * 同理也可以实现相机的平移效果。
+ */
+void rotateCamera(){
+
+    static GLfloat yRot = 0.0f;
+    static float forwardX;
+    static float forwardY;
+    
+    yRot += 0.1f;
+    forwardX = 50*cos(yRot);
+    forwardY = 50*sin(yRot);
+
+    // 应用相机变换
+    frameCamera.vLocation[0] = 0;
+    frameCamera.vLocation[1] = 0;
+    frameCamera.vLocation[2] = 0;
+
+    frameCamera.vForward[0] = forwardX;//10;
+    frameCamera.vForward[1] = 0;
+    frameCamera.vForward[2] = forwardY;//10;
+
+    frameCamera.vUp[0] = 0;
+    frameCamera.vUp[1] = 10;
+    frameCamera.vUp[2] = 0;
+
+    gluLookAt(
+        frameCamera.vLocation[0],
+        frameCamera.vLocation[1],
+        frameCamera.vLocation[2],
+        frameCamera.vForward[0],
+        frameCamera.vForward[1],
+        frameCamera.vForward[2],
+        frameCamera.vUp[0],
+        frameCamera.vUp[1],
+        frameCamera.vUp[2]);
+}
 /**
  * 界面绘制事件
  */
 void onDisplay(){
-    GLfloat x,y,z;// position and angle
-    GLfloat x1,y1,z1;// position and angle
+    int i;
+    /**
+     * 相机帧数据
+     */
+    static GLTFrame frameCamera;
 
-    GLfloat size = 1.0f;// point size.
-
-    GLfloat xRot = 30.0f;
-    GLfloat yRot = 120.0f;
-
-    glClear(GL_COLOR_BUFFER_BIT);// use current color to clean bg.
+    // 清除颜色和深度缓冲
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 //------ 核心代码--------
-    glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-
-    angle += 0.05f;
-    angle1 += 0.1f;
-    
-    x = 30 * cos(angle);
-    y = 30 * sin(angle);
-    /**
-     * 这里很关键，一定要把物品放在很真远的地方，同时要存在于裁剪区域内。
-     */
-    z = -255;
-
-    // 复位矩阵，让当前平移矩阵复位到原始点（0,0,0）
-    glLoadIdentity();
-    // 指定位置
-    glTranslatef(x, y, z);
+    // 旋转相机
+    rotateCamera();
     // 绘制线框立方体
-    glutWireCube(40.0f);
-
+    drawGround();
     glPopMatrix();
 //------ 核心代码--------
 
@@ -79,6 +120,11 @@ void initGlobalRes(void){
     //--------- 核心代码 ---------
     // r,g,b,a
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);// black
+
+    /**
+     * 设置以线框的形式绘制所有东西
+     */
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 }
 
 /**
@@ -119,27 +165,15 @@ void onReshape(int width, int height){
     glMatrixMode(GL_PROJECTION);
     // 重置坐标系统
     glLoadIdentity();
-
-    // 修改视口的裁剪区域为标准: 
-    // 宽(-nRange, nRange)，高(nRange, nRange)的正方形
+    // 计算横纵比
     aspectRatio = (GLfloat) width/ (GLfloat) height;
-    // 建立裁剪区域（左、右、底、顶、近、远）
-    /**
-     * TODO 请阅读这里
-     * 不再需要调用  glOrtho()函数了，取代的是 gluPerspective()
-     * 即，由正投视改为透视投影。
-     */
-    //if(width <=height)
-        //glOrtho(-nRange, nRange, -nRange/aspectRatio, nRange/aspectRatio, -nRange, nRange);
-    //else
-        //glOrtho(-nRange * aspectRatio, nRange * aspectRatio, -nRange, nRange, -nRange, nRange);
-
     // 产生透视投影
     GLdouble fovy = 45.0f;
-    GLdouble zNear = 100.0f;
+    GLdouble zNear = 1.0f;
     GLdouble zFar = 400.0f;
+    // 建立裁剪区域（左、右、底、顶、近、远）
     gluPerspective(fovy, aspectRatio, zNear, zFar);
-    // 矩阵模式要复位为 模型视图
+    // 矩阵模式要复位为模型视图
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     //--------- 核心代码 TODO ---------

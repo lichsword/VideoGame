@@ -13,7 +13,7 @@
 
 CC = gcc
 LIBS = -framework OpenGl -framework GLUT
-PROJ = PerspectiveEarthMoonAnim
+PROJ = EarchMoonAnim
 
 COM = ../include/gtcommon
 LOG = ../include/gtlog

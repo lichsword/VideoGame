@@ -29,7 +29,8 @@ void onDisplay(){
     static float fEarthRot = 0.0f;
     static float fMoonRot = 0.0f;
 
-    static GLTVector3 lightPos = {0, 10.0f, 10.0f};
+    static GLTVector3 lightPos = {0, 10.0f, 0};
+    static GLfloat ambientLight[]={1.0f, 1.0f, 1.0f, 1.0f};
 
     // 用当前清除颜色清除窗口
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -45,10 +46,16 @@ void onDisplay(){
     glColor3ub(255, 255, 0); //red + green = yellow. 
     glDisable(GL_LIGHTING);// 禁用光照
     glutSolidSphere(15.0f, 15, 15);
-    glEnable(GL_LIGHTING);// 启用光照
-
+    /**
+     * 在本例中，我们重点是看透视效果，所以把光照不使用。
+     * 简化逻辑，专注重点
+     */
+    // 启用光照
+    //glEnable(GL_LIGHTING);
+    // 设置环境光 白光
+    //glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientLight); 
     // 在绘制太阳之后，放置光源
-    glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+    //glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
 
     // 旋转坐标系统
     glRotatef(fEarthRot, 0.0f, 1.0f, 0.0f);
@@ -61,7 +68,7 @@ void onDisplay(){
     glColor3ub(200, 200, 200);
     glRotatef(fMoonRot, 0.0f, 1.0f, 0.0f);
     glTranslatef(30.0f, 0.0f, 0.0f);
-    fMoonRot += 15.0f;
+    fMoonRot += 4.0f;
     if(fMoonRot > 360.0f){
         fMoonRot = 0.0f;// reset
     }// end if
@@ -72,7 +79,7 @@ void onDisplay(){
     glPopMatrix();// 现在是模型视图状态
     
     // 每次绕轨道旋转5度
-    fEarthRot += 5.0f;
+    fEarthRot += 2.0f;
     if(fEarthRot > 360.0f){
         fEarthRot = 0.0f;
     }// end if

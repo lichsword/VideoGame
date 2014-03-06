@@ -13,7 +13,7 @@
 
 CC = gcc
 LIBS = -framework OpenGl -framework GLUT
-PROJ = Perspective
+PROJ = ActorTransform
 
 COM = ../include/gtcommon
 LOG = ../include/gtlog
